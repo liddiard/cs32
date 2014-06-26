@@ -1,4 +1,5 @@
 #include <iostream>
+#include "Villian.h"
 
 ///////////////////////////////////////////////////////////////////////////
 //  Villain implementation
@@ -64,4 +65,3 @@ void Villain::push(int dir)
     	setDead();
     }
 }
-

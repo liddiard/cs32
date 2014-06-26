@@ -84,83 +84,6 @@ int computeDanger(const Colosseum& colosseum, int r, int c);
 void clearScreen();
 
 ///////////////////////////////////////////////////////////////////////////
-//  Player implementation
-///////////////////////////////////////////////////////////////////////////
-
-Player::Player(Colosseum* colosseum, int r, int c)
-{
-    if (colosseum == NULL)
-    {
-        cout << "***** The player must be created in some Colosseum!" << endl;
-        exit(1);
-    }
-    if (r < 1  ||  r > colosseum->rows()  ||  c < 1  ||  c > colosseum->cols())
-    {
-        cout << "**** Player created with invalid coordinates (" << r
-             << "," << c << ")!" << endl;
-        exit(1);
-    }
-    m_colosseum = colosseum;
-    m_row = r;
-    m_col = c;
-    m_dead = false;
-}
-
-int Player::row() const
-{
-    return m_row;
-}
-
-int Player::col() const
-{
-    return m_col;
-}
-
-string Player::push()
-{
-    m_colosseum->pushAllVillains(m_row - 1, m_col, NORTH);
-    m_colosseum->pushAllVillains(m_row + 1, m_col, SOUTH);
-    m_colosseum->pushAllVillains(m_row, m_col + 1, EAST);
-    m_colosseum->pushAllVillains(m_row, m_col - 1, WEST);
-
-    return "Player pushed.";
-}
-
-string Player::move(int dir)
-{
-    if (attemptMove(*m_colosseum, dir, m_row, m_col))
-    {
-        if (m_colosseum->numberOfVillainsAt(m_row, m_col) > 0)
-        {
-            setDead();
-            return "Player walked into a villain and died.";
-        }
-        string msg = "Player moved ";
-        switch (dir)
-        {
-          case NORTH: msg += "north"; break;
-          case EAST:  msg += "east";  break;
-          case SOUTH: msg += "south"; break;
-          case WEST:  msg += "west";  break;
-        }
-        msg += ".";
-        return msg;
-    }
-    else
-        return "Player couldn't move; player stands.";
-}
-
-bool Player::isDead() const
-{
-    return m_dead;
-}
-
-void Player::setDead()
-{
-    m_dead = true;
-}
-
-///////////////////////////////////////////////////////////////////////////
 //  Colosseum implementation
 ///////////////////////////////////////////////////////////////////////////
 
@@ -231,7 +154,7 @@ void Colosseum::display(string msg) const
 {
     char displayGrid[MAXROWS][MAXCOLS];
     int r, c;
-    
+
       // Fill displayGrid with dots (empty)
     for (r = 1; r <= rows(); r++)
         for (c = 1; c <= cols(); c++)
@@ -327,7 +250,7 @@ void Colosseum::moveVillains()
 void Colosseum::pushAllVillains(int r, int c, int dir)
 {
     // pushes all villains at [r,c] in the given direction
-    // Note that if r,c isn't a valid location, this will 
+    // Note that if r,c isn't a valid location, this will
     //      do nothing.  We could instead have checked
     //      to see if it's in range, and skipped the loop
     //      in that case.
@@ -626,7 +549,7 @@ int main()
     srand(static_cast<unsigned int>(time(0)));
 
       // Create a game
-      // Use this instead to create a mini-game:   
+      // Use this instead to create a mini-game:
       Game g(3, 5, 2);
       //Game g(10, 12, 40);
 
