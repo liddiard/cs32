@@ -1,4 +1,4 @@
-// trading.cpp
+// main.cpp
 
 #include <iostream>
 #include <string>
@@ -6,77 +6,17 @@
 #include <cstdlib>
 #include <cctype>
 #include <cassert>
+
+#include "globals.h"
+#include "Villain.h"
+#include "Villain.cpp"
+
 using namespace std;
 
-///////////////////////////////////////////////////////////////////////////
-// Manifest constants
-///////////////////////////////////////////////////////////////////////////
-
-const int MAXROWS = 20;              // max number of rows in the colosseum
-const int MAXCOLS = 20;              // max number of columns in the colosseum
-const int MAXVILLAINS = 100;          // max number of villains allowed
-
-const int NORTH = 0;
-const int EAST  = 1;
-const int SOUTH = 2;
-const int WEST  = 3;
-const int NUMDIRS = 4;
-
-const int EMPTY      = 0;
 
 ///////////////////////////////////////////////////////////////////////////
 // Type definitions
 ///////////////////////////////////////////////////////////////////////////
-
-class Colosseum;  // This is needed to let the compiler know that Colosseum is a
-              // type name, since it's mentioned in the Villain declaration.
-
-class Villain
-{
-  public:
-      // Constructor
-    Villain(Colosseum* colosseum, int r, int c);
-
-      // Accessors
-    int  row() const;
-    int  col() const;
-    bool isDead() const;
-    
-
-      // Mutators
-    void move();
-    void setDead();
-    void push(int dir); // pushes this villain in this direction.
-
-  private:
-    Colosseum* m_colosseum;
-    int    m_row;
-    int    m_col;
-    bool   m_dead;
-};
-
-class Player
-{
-  public:
-      // Constructor
-    Player(Colosseum *colosseum, int r, int c);
-
-      // Accessors
-    int  row() const;
-    int  col() const;
-    bool isDead() const;
-
-      // Mutators
-    string move(int dir);
-    string push();
-    void   setDead();
-
-  private:
-    Colosseum* m_colosseum;
-    int    m_row;
-    int    m_col;
-    bool   m_dead;
-};
 
 class Colosseum
 {
@@ -142,71 +82,6 @@ bool attemptMove(const Colosseum& colosseum, int dir, int& r, int& c);
 bool recommendMove(const Colosseum& colosseum, int r, int c, int& bestDir);
 int computeDanger(const Colosseum& colosseum, int r, int c);
 void clearScreen();
-
-///////////////////////////////////////////////////////////////////////////
-//  Villain implementation
-///////////////////////////////////////////////////////////////////////////
-
-Villain::Villain(Colosseum* colosseum, int r, int c)
-{
-    if (colosseum == NULL)
-    {
-        cout << "***** A villain must be created in some Colosseum!" << endl;
-        exit(1);
-    }
-    if (r < 1  ||  r > colosseum->rows()  ||  c < 1  ||  c > colosseum->cols())
-    {
-        cout << "***** Villain created with invalid coordinates (" << r << ","
-             << c << ")!" << endl;
-        exit(1);
-    }
-    m_colosseum = colosseum;
-    m_row = r;
-    m_col = c;
-    m_dead = false;
-}
-
-int Villain::row() const
-{
-    return m_row;
-}
-
-int Villain::col() const
-{
-    return m_col;
-}
-
-bool Villain::isDead() const
-{
-    return m_dead;
-}
-
-void Villain::move()
-{
-      // Attempt to move in a random direction; if we can't move, don't move
-    attemptMove(*m_colosseum, randInt(0, NUMDIRS-1), m_row, m_col);
-}
-
-void Villain::setDead()
-{
-    m_dead = true;
-}
-
-void Villain::push(int dir)
-{
-    // pushes this villain in this direction.
-    switch(dir)
-    {
-    	case NORTH: m_row--; break;
-    	case SOUTH: m_row++; break;
-    	case EAST:  m_col++; break;
-    	case WEST:  m_col--; break;
-    }
-    if (m_row < 1 || m_row > m_colosseum->rows() || m_col < 1 || m_col > m_colosseum->cols() )
-    {
-    	setDead();
-    }
-}
 
 ///////////////////////////////////////////////////////////////////////////
 //  Player implementation
