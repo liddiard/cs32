@@ -8,25 +8,30 @@ class List
 {
     public:
         List();
+        ~List();
         bool add(std::string s);
         int length() const; // method will not change any attr vars
 
     private:
-        std::string elements[MAXLEN];
-        int size;
+        std::string * elements;
+        int size, lenOfArray;
+        void expandList();
 };
 
-List::List(): size(0) // initializer list
+List::List(): size(0), lenOfArray(START_LEN) // initializer list
 {
-    size = 0;
+    elements = new string [START_LEN];
+}
+
+List::~List():
+{
+    delete [] elements;
 }
 
 bool List::add(std::string s)
 {
-    if (size == MAXLEN)
-    {
-        return false;
-    }
+    if (size >= lenOfArray)
+        expandList();
     elements[size] = s;
     size++;
     return true;
@@ -35,6 +40,19 @@ bool List::add(std::string s)
 int List::length() const // const required here for function signature
 {
     return size;
+}
+
+void List::expandList()
+{
+    const int FACTOR = 2;
+    string * nl = new string[FACTOR * lenOfArray];
+    for (int i=0; i < size; i++)
+    {
+        nl[i] = elements[i];
+    }
+    delete [] elements; // call with brackets because it's an array
+    elements = nl;
+    lenOfArray *= FACTOR;
 }
 
 #endif
