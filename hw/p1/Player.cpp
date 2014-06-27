@@ -1,3 +1,4 @@
+#include <string>
 #include "globals.h"
 #include "Player.h"
 
@@ -34,7 +35,7 @@ int Player::col() const
     return m_col;
 }
 
-string Player::push()
+std::string Player::push()
 {
     m_colosseum->pushAllVillains(m_row - 1, m_col, NORTH);
     m_colosseum->pushAllVillains(m_row + 1, m_col, SOUTH);
@@ -44,7 +45,7 @@ string Player::push()
     return "Player pushed.";
 }
 
-string Player::move(int dir)
+std::string Player::move(int dir)
 {
     if (attemptMove(*m_colosseum, dir, m_row, m_col))
     {
@@ -53,7 +54,7 @@ string Player::move(int dir)
             setDead();
             return "Player walked into a villain and died.";
         }
-        string msg = "Player moved ";
+        std::string msg = "Player moved ";
         switch (dir)
         {
           case NORTH: msg += "north"; break;

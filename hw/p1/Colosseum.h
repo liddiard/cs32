@@ -1,6 +1,12 @@
 #ifndef COLOSSEUM_INCLUDED
 #define COLOSSEUM_INCLUDED
 
+#include <string>
+#include "globals.h"
+
+class Player;
+class Villain;
+
 class Colosseum
 {
   public:
@@ -15,7 +21,7 @@ class Colosseum
     int     villainCount() const;
     int     getCellStatus(int r, int c) const;
     int     numberOfVillainsAt(int r, int c) const;
-    void    display(string msg) const;
+    void    display(std::string msg) const;
 
       // Mutators
     void setCellStatus(int r, int c, int status);
