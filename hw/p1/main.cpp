@@ -1,12 +1,6 @@
 // main.cpp
 
-#include <iostream>
-#include <string>
-#include <algorithm>
 #include <cstdlib>
-#include <cctype>
-#include <cassert>
-
 #include "Game.h"
 #include "Game.cpp"
 #include "Colosseum.h"
