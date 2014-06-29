@@ -41,6 +41,7 @@ std::string Player::push()
     m_colosseum->pushAllVillains(m_row + 1, m_col, SOUTH);
     m_colosseum->pushAllVillains(m_row, m_col + 1, EAST);
     m_colosseum->pushAllVillains(m_row, m_col - 1, WEST);
+    m_colosseum->history().record(m_row, m_col);
 
     return "Player pushed.";
 }
@@ -49,6 +50,7 @@ std::string Player::move(int dir)
 {
     if (attemptMove(*m_colosseum, dir, m_row, m_col))
     {
+        m_colosseum->history().record(m_row, m_col);
         if (m_colosseum->numberOfVillainsAt(m_row, m_col) > 0)
         {
             setDead();
@@ -65,8 +67,11 @@ std::string Player::move(int dir)
         msg += ".";
         return msg;
     }
-    else
+    else 
+    {
+        m_colosseum->history().record(m_row, m_col);
         return "Player couldn't move; player stands.";
+    }
 }
 
 bool Player::isDead() const

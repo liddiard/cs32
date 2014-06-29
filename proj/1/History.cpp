@@ -1,4 +1,10 @@
 #include "History.h"
+#include "globals.h"
+
+bool inBounds(int row, int col)
+{
+    
+};
 
 History::History(int nRows, int nCols)
 {

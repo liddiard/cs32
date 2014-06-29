@@ -56,7 +56,7 @@ std::string Game::takePlayerTurn()
 {
     for (;;)
     {
-        std::cout << "Your move (n/e/s/w/p or nothing): ";
+        std::cout << "Your move (n/e/s/w/h/p or nothing): ";
         std::string playerMove;
         getline(std::cin, playerMove);
 
@@ -72,12 +72,14 @@ std::string Game::takePlayerTurn()
         }
         else if (playerMove.size() == 1)
         {
-            if (tolower(playerMove[0]) == 'p')
+            if (tolower(playerMove[0]) == 'h')
+                m_colosseum->history().display();
+            else if (tolower(playerMove[0]) == 'p')
                 return player->push();
             else if (charToDir(playerMove[0], dir))
                 return player->move(dir);
         }
-        std::cout << "Player move must be nothing, or 1 character n/e/s/w/p." << std::endl;
+        std::cout << "Player move must be nothing, or 1 character n/e/s/w/h/p." << std::endl;
     }
 }
 

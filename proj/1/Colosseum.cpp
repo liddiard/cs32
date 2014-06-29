@@ -3,12 +3,13 @@
 #include "globals.h"
 #include "Colosseum.h"
 #include "Villain.h"
+#include "History.h"
 
 ///////////////////////////////////////////////////////////////////////////
 //  Colosseum implementation
 ///////////////////////////////////////////////////////////////////////////
 
-Colosseum::Colosseum(int nRows, int nCols)
+Colosseum::Colosseum(int nRows, int nCols): m_history(nRows, nCols)
 {
     if (nRows <= 0  ||  nCols <= 0  ||  nRows > MAXROWS  ||  nCols > MAXCOLS)
     {
@@ -118,6 +119,11 @@ void Colosseum::display(std::string msg) const
     else if (m_player->isDead())
         std::cout << "The player is dead." << std::endl;
     std::cout << m_turns << " turns have been taken." << std::endl;
+}
+
+History& Colosseum::history() 
+{
+    return m_history;
 }
 
 void Colosseum::setCellStatus(int r, int c, int status)

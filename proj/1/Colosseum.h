@@ -3,6 +3,7 @@
 
 #include <string>
 #include "globals.h"
+#include "History.h"
 
 class Player;
 class Villain;
@@ -22,6 +23,7 @@ class Colosseum
     int     getCellStatus(int r, int c) const;
     int     numberOfVillainsAt(int r, int c) const;
     void    display(std::string msg) const;
+    History& history();
 
       // Mutators
     void setCellStatus(int r, int c, int status);
@@ -38,6 +40,7 @@ class Colosseum
     Villain* m_villains[MAXVILLAINS];
     int     m_nVillains;
     int     m_turns;
+    History m_history;
 
       // Helper functions
     void checkPos(int r, int c) const;
