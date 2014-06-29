@@ -2,12 +2,7 @@
 #define HISTORY_INCLUDED
 
 #include <vector>
-
-struct Coordinate
-{
-    int x;
-    int y;
-};
+#include "globals.h"
 
 class History
 {
@@ -18,7 +13,8 @@ class History
     private:
         int m_nRows;
         int m_nCols;
-        std::vector<Coordinate> history;
+        char m_alphabet[ALPHABET_LENGTH];
+        int m_history[MAXROWS][MAXCOLS];
 };
 
 #endif

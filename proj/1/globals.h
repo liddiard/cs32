@@ -17,6 +17,8 @@ const int NUMDIRS = 4;
 
 const int EMPTY      = 0;
 
+const int ALPHABET_LENGTH = 26;
+
 int randInt(int lowest, int highest);
 bool charToDir(char ch, int& dir);
 bool attemptMove(const Colosseum& colosseum, int dir, int& r, int& c);
