@@ -73,7 +73,10 @@ std::string Game::takePlayerTurn()
         else if (playerMove.size() == 1)
         {
             if (tolower(playerMove[0]) == 'h')
+            {
                 m_colosseum->history().display();
+                return "Press enter to continue.";
+            }
             else if (tolower(playerMove[0]) == 'p')
                 return player->push();
             else if (charToDir(playerMove[0], dir))
