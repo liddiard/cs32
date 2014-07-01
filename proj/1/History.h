@@ -1,7 +1,6 @@
 #ifndef HISTORY_INCLUDED
 #define HISTORY_INCLUDED
 
-#include <vector>
 #include "globals.h"
 
 class History
