@@ -1,9 +1,11 @@
 #include <string>
 #include <iostream>
+#include <stdlib.h>
 #include "globals.h"
 #include "Colosseum.h"
 #include "Villain.h"
 #include "History.h"
+#include "Player.h"
 
 ///////////////////////////////////////////////////////////////////////////
 //  Colosseum implementation

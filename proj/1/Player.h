@@ -3,6 +3,8 @@
 
 #include <string>
 
+class Colosseum;
+
 class Player
 {
   public:

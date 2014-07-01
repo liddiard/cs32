@@ -1,5 +1,8 @@
 #include <iostream>
+#include <stdlib.h>
 #include "Villain.h"
+#include "globals.h"
+#include "Colosseum.h"
 
 ///////////////////////////////////////////////////////////////////////////
 //  Villain implementation

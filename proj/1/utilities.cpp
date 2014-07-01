@@ -1,4 +1,8 @@
 #include <algorithm>
+#include <string>
+#include <iostream>
+#include "globals.h"
+#include "Colosseum.h"
 
   // Return a uniformly distributed random int from lowest to highest, inclusive
 int randInt(int lowest, int highest)
