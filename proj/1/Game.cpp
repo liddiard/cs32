@@ -1,5 +1,6 @@
 #include <string>
 #include <iostream>
+#include <stdlib.h>
 #include "globals.h"
 #include "Game.h"
 #include "Colosseum.h"

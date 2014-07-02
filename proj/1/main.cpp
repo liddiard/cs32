@@ -2,17 +2,11 @@
 
 #include <cstdlib>
 #include "Game.h"
-#include "Game.cpp"
 #include "Colosseum.h"
-#include "Colosseum.cpp"
 #include "History.h"
-#include "History.cpp"
 #include "Player.h"
-#include "Player.cpp"
 #include "Villain.h"
-#include "Villain.cpp"
 #include "globals.h"
-#include "utilities.cpp"
 
 using namespace std;
 
