@@ -81,4 +81,18 @@ void LinkedList::remove(string s)
     delete cur;
 }
 
+void LinkedList::addToEnd(string s)
+{
+    LinkNode * ln = new LinkNode;
+    ln->data = s;
+    ln->next = nullptr;
+    if (tail == nullptr)
+        front = tail = ln;
+    else
+    {
+        tail->next = ln;
+        tail = tail->next;
+    }
+}
+
 int main() {};
