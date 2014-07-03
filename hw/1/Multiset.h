@@ -3,12 +3,6 @@
 typedef std::string ItemType;
 const int DEFAULT_MAX_ITEMS = 200;
 
-struct Item
-{
-    ItemType name;
-    int count;
-};
-
 class Multiset
 {
     public:
@@ -54,6 +48,12 @@ class Multiset
         // Exchange the contents of this multiset with the other one.
 
     private:
+        struct Item
+        {
+            ItemType name;
+            int count;
+        };
+
        int find(const ItemType& value) const; 
        // return index of item, -1 if not found
 
