@@ -1,3 +1,14 @@
+#include <string>
+
+typedef std::string ItemType;
+const int DEFAULT_MAX_ITEMS = 200;
+
+struct Item
+{
+    ItemType name;
+    int count;
+};
+
 class Multiset
 {
     public:
@@ -14,26 +25,26 @@ class Multiset
         // the uniqueSize of a multiset containing "cumin", "cumin", "cumin",
         // "turmeric" is 2.
 
-        bool insert(const std::string& value);
+        bool insert(const ItemType& value);
         // Insert value into the multiset.  Return true if the value was
         // actually inserted.  Return false if the value was not inserted
         // (perhaps because the multiset has a fixed capacity and is full).
 
-        int erase(const std::string& value);
+        int erase(const ItemType& value);
         // Remove one instance of value from the multiset if present.
         // Return the number of instances removed, which will be 1 or 0.
 
-        int eraseAll(const std::string& value);
+        int eraseAll(const ItemType& value);
         // Remove all instances of value from the multiset if present.
         // Return the number of instances removed.
 
-        bool contains(const std::string& value) const;
+        bool contains(const ItemType& value) const;
         // Return true if the value is in the multiset, otherwise false.
 
-        int count(const std::string& value) const;
+        int count(const ItemType& value) const;
         // Return the number of instances of value in the multiset.
 
-        int get(int i, std::string& value);
+        int get(int i, ItemType& value);
         // If 0 <= i < uniqueSize(), copy into value an item in the
         // multiset and return the number of instances of that item in
         // the multiset.  Otherwise, leave value unchanged and return 0.
@@ -41,4 +52,14 @@ class Multiset
 
         void swap(Multiset& other);
         // Exchange the contents of this multiset with the other one.
+
+    private:
+       int find(const ItemType& value) const; 
+       // return index of item, -1 if not found
+
+       bool remove(int index); 
+       // remove the item at index and shift everything over
+
+       Item dict[DEFAULT_MAX_ITEMS]; 
+       int dict_size;
 };
