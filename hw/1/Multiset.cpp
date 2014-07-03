@@ -106,7 +106,27 @@ int Multiset::get(int i, ItemType& value)
 
 void Multiset::swap(Multiset& other)
 {
-    
+    Item tmp[DEFAULT_MAX_ITEMS]; // create a temporary array
+    int tmp_size = this->dict_size;
+    for (int i = 0; i < this->dict_size; i++) // copy current items into tmp
+    {
+        tmp[i] = this->dict[i];
+    }
+    for (int i = 0; i < other.uniqueSize(); i++) // copy other's items into current
+    {
+        ItemType name;
+        int count = other.get(i, name);
+        Item to_add;
+        to_add.name = name;
+        to_add.count = count;
+        this->dict[i] = to_add;
+    }
+    this->dict_size = other.uniqueSize(); // update current's size
+    for (int i = 0; i < tmp_size; i++)
+    {
+       other.dict[i] = tmp[i]; 
+    }
+    other.dict_size = tmp_size;
 }
 
 int Multiset::find(const ItemType& value) const
