@@ -7,7 +7,7 @@ StudentMultiset::StudentMultiset() {
 
 bool StudentMultiset::add(unsigned long id)
 {
-    id_preexisting = this->submissions.contains(id);
+    bool id_preexisting = this->submissions.contains(id);
     if (this->submissions.insert(id)) // id was successfully inserted
     {
         if (!id_preexisting)

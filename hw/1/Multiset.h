@@ -1,6 +1,6 @@
 #include <string>
 
-typedef std::string ItemType;
+typedef unsigned long ItemType;
 const int DEFAULT_MAX_ITEMS = 200;
 
 class Multiset
