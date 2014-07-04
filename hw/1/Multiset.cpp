@@ -37,7 +37,7 @@ bool Multiset::insert(const ItemType& value)
         this->dict[index].count++; // perform an update
         return true;
     }
-    else if (this->dict_size < this->DEFAULT_MAX_ITEMS) // if there's room in the multiset
+    else if (this->dict_size < DEFAULT_MAX_ITEMS) // if there's room in the multiset
     {
         this->dict[dict_size].count = 1;
         this->dict[dict_size].name = value;
