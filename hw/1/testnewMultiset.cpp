@@ -9,7 +9,7 @@ int main()
     Multiset a(1000);   // a can hold at most 1000 distinct items
     Multiset b(5);      // b can hold at most 5 distinct items
     Multiset c;         // c can hold at most DEFAULT_MAX_ITEMS distinct items
-    ItemType v[6] = { "lorem", "ipsum", "dolor", "sit", "amet", "consectectur" };
+    ItemType v[6] = { 34, 123, 301, 305, 299, 2048 };
     // No failures inserting 5 distinct items twice each into b
     for (int k = 0; k < 5; k++)
     {
