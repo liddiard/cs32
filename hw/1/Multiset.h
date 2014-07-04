@@ -1,8 +1,6 @@
 #ifndef MULTISET_INCLUDED
 #define MULTISET_INCLUDED
 
-#include <string>
-
 typedef unsigned long ItemType;
 const int DEFAULT_MAX_ITEMS = 200;
 

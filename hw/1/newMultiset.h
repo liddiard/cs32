@@ -1,9 +1,7 @@
 #ifndef NEW_MULTISET_INCLUDED
 #define NEW_MULTISET_INCLUDED
 
-#include <string>
-
-typedef std::string ItemType;
+typedef unsigned long ItemType;
 const int DEFAULT_MAX_ITEMS = 200;
 
 class Multiset
