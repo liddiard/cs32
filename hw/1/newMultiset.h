@@ -1,12 +1,14 @@
 #include <string>
 
-typedef unsigned long ItemType;
+typedef std::string ItemType;
 const int DEFAULT_MAX_ITEMS = 200;
 
 class Multiset
 {
     public:
-        Multiset();    // Create an empty multiset.
+        Multiset();    // Create an empty multiset with a default max size.
+        Multiset(int max_items);    // Create an empty multiset with a specified max size
+        ~Multiset();
 
         bool empty() const;  // Return true if the multiset is empty, otherwise false.
 
@@ -60,6 +62,7 @@ class Multiset
        bool remove(int index); 
        // remove the item at index and shift everything over
 
-       Item dict[DEFAULT_MAX_ITEMS]; 
+       Item** dict;
        int dict_size;
+       int max_items;
 };
