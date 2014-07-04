@@ -24,5 +24,6 @@ int main()
     // as well:
     a.swap(b);
     assert(!a.insert(v[5])  &&  b.insert(v[5]));
+    //Multiset d = a;
     return 0;
 }

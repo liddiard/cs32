@@ -1,3 +1,6 @@
+#ifndef NEW_MULTISET_INCLUDED
+#define NEW_MULTISET_INCLUDED
+
 #include <string>
 
 typedef std::string ItemType;
@@ -9,6 +12,7 @@ class Multiset
         Multiset();    // Create an empty multiset with a default max size.
         Multiset(int max_items);    // Create an empty multiset with a specified max size
         ~Multiset();
+        Multiset(const Multiset &source);
 
         bool empty() const;  // Return true if the multiset is empty, otherwise false.
 
@@ -66,3 +70,5 @@ class Multiset
        int dict_size;
        int max_items;
 };
+
+#endif

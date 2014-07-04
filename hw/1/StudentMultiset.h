@@ -1,3 +1,6 @@
+#ifndef STUDENT_MULTISET_INCLUDED
+#define STUDENT_MULTISET_INCLUDED
+
 #include "Multiset.h"
 
 class StudentMultiset
@@ -22,3 +25,5 @@ class StudentMultiset
         ItemType ids[DEFAULT_MAX_ITEMS];
         int ids_size;
 };
+
+#endif

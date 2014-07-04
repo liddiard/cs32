@@ -1,3 +1,6 @@
+#ifndef MULTISET_INCLUDED
+#define MULTISET_INCLUDED
+
 #include <string>
 
 typedef unsigned long ItemType;
@@ -63,3 +66,5 @@ class Multiset
        Item dict[DEFAULT_MAX_ITEMS]; 
        int dict_size;
 };
+
+#endif

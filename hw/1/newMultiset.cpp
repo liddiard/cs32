@@ -20,6 +20,19 @@ Multiset::~Multiset()
     delete[] this->dict;
 }
 
+Multiset::Multiset(const Multiset &source)
+{
+    this->max_items = source.max_items;
+    this->dict_size = source.dict_size;
+    for (int i = 0; i < source.dict_size; i++)
+    {
+        Item *to_add = new Item;
+        to_add->name = source.dict[i]->name;
+        to_add->count = source.dict[i]->count;
+        this->dict[i] = to_add;
+    }
+}
+
 bool Multiset::empty() const
 {
     if (this->dict_size > 0)
