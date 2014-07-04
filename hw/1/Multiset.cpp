@@ -31,22 +31,18 @@ int Multiset::uniqueSize() const
 
 bool Multiset::insert(const ItemType& value)
 {
-    if (this->dict_size < DEFAULT_MAX_ITEMS) // if there's room in the multiset
+    int index = this->find(value);
+    if (index != -1) // item was found
     {
-        int index = this->find(value);
-        if (index != -1) // item was found
-        {
-            this->dict[index].count++; // perform an update
-            return true;
-        }
-        else // if we get here, the value wasn't in the multiset already
-        {
-            // TODO: figure out if this line is needed: this->dict[dict_size] = Item; // perform an insertion
-            this->dict[dict_size].count = 1;
-            this->dict[dict_size].name = value;
-            this->dict_size++;
-            return true;
-        }
+        this->dict[index].count++; // perform an update
+        return true;
+    }
+    else if (this->dict_size < this->DEFAULT_MAX_ITEMS) // if there's room in the multiset
+    {
+        this->dict[dict_size].count = 1;
+        this->dict[dict_size].name = value;
+        this->dict_size++;
+        return true;
     }
     else return false;
 }
