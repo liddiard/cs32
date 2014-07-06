@@ -25,6 +25,14 @@
 
 #include "Stack.h"
 
+const int ALPHABET_LENGTH = 26;
+
+struct Variable
+{
+    char name;
+    int value;
+};
+
 class ProgramState
 {
 public:
@@ -37,9 +45,8 @@ public:
 
 private:
 	int m_numLines;
+    Variable variables[ALPHABET_LENGTH];
 };
 
 #endif
-
-
 
