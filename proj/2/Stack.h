@@ -2,9 +2,6 @@
 #define STACK_INCLUDED
 
 template <typename T>
-class StackNode;
-
-template <typename T>
 class Stack
 {
 public:
@@ -15,7 +12,19 @@ public:
 	bool empty() const;
 
 private:
-	StackNode<T> * m_top;
+    template <typename U>
+    struct StackNode
+    {
+        U data;
+        StackNode* next;
+        StackNode (U data)
+        {
+            this->data = data;
+            this->next = nullptr;
+        }
+    };
+
+	StackNode<T> * head;
 };
 
 #endif
