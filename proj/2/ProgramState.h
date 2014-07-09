@@ -37,6 +37,8 @@ class ProgramState
 {
 public:
 	ProgramState(int numLines);
+    void incrementCounter();
+    void incrementCounter(int line);
 
 	// You'll need to add a variety of methods here.  Rather than trying to
 	// think of what you'll need to add ahead of time, add them as you find
@@ -45,6 +47,7 @@ public:
 
 private:
 	int m_numLines;
+    int program_counter;
     Variable variables[ALPHABET_LENGTH];
 };
 

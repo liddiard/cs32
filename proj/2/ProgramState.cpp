@@ -11,3 +11,13 @@ ProgramState::ProgramState(int numLines)
     }
     this->m_numLines = numLines;
 }
+
+void ProgramState::incrementCounter()
+{
+    this->program_counter++; 
+}
+
+void ProgramState::setCounter(int line)
+{
+    this->program_counter = line;
+}

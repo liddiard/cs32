@@ -27,7 +27,6 @@ private:
 	StackNode<T> * head;
 };
 
-
 template <typename T>
 Stack<T>::Stack()
 {
@@ -73,4 +72,3 @@ bool Stack<T>::empty() const
 }
 
 #endif
-

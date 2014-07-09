@@ -74,7 +74,7 @@ Statement * parseLine(string line)
 		//	  contains a syntactically legal Facile program, we know that
 		//	  any line that begins with "LET" will be followed by a space
 		//	  and then a variable (single character) and then an integer value.
-		//statement = new LetStatement(var, val);
+		statement = new LetStatement(var, val);
 	}
 
 	// Incomplete;  TODO:  Finish this function!
