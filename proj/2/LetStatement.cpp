@@ -14,7 +14,8 @@ LetStatement::LetStatement(char variableName, int value)
 //    * increment the program counter
 void LetStatement::execute(ProgramState * state, ostream &outf)
 {
-    state->incrementCounter();
-    this->variableName;
-    this->value;
+    char var = this->m_variableName;
+    int val = this->m_value;
+	state->setVariable(var, val);
+	state->incrementCounter();
 }

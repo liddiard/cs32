@@ -23,9 +23,8 @@
 #ifndef PROGRAM_STATE_INCLUDED
 #define PROGRAM_STATE_INCLUDED
 
+#include "globals.h"
 #include "Stack.h"
-
-const int ALPHABET_LENGTH = 26;
 
 struct Variable
 {
@@ -38,7 +37,7 @@ class ProgramState
 public:
 	ProgramState(int numLines);
     void incrementCounter();
-    void incrementCounter(int line);
+    void setCounter(int line);
     bool setVariable(char var, int val);
 
 	// You'll need to add a variety of methods here.  Rather than trying to
@@ -53,4 +52,3 @@ private:
 };
 
 #endif
-

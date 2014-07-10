@@ -1,0 +1,6 @@
+#ifndef GLOBALS_INCLUDED
+#define GLOBALS_INCLUDED
+
+const int ALPHABET_LENGTH = 26;
+
+#endif

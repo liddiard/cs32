@@ -3,7 +3,7 @@
 #include "LetStatement.h"
 #include <vector>
 #include <string>
-#include <sstream> 
+#include <sstream>
 #include <fstream>
 #include <cstdlib>
 #include <iostream>
@@ -45,7 +45,7 @@ int main()
 void parseProgram(istream &inf, vector<Statement *> & program)
 {
 	program.push_back(nullptr);
-	
+
 	string line;
 	while( ! inf.eof() )
 	{
@@ -57,7 +57,7 @@ void parseProgram(istream &inf, vector<Statement *> & program)
 
 Statement * parseLine(string line)
 {
-	Statement * statement;	
+	Statement * statement;
 	stringstream ss;
 	string type;
 	char var;
@@ -65,7 +65,7 @@ Statement * parseLine(string line)
 
 	ss << line;
 	ss >> type;
-	
+
 	if ( type == "LET" )
 	{
 		ss >> var;
@@ -80,7 +80,7 @@ Statement * parseLine(string line)
 	// Incomplete;  TODO:  Finish this function!
 
 
-		
+
 	return statement;
 }
 
@@ -89,7 +89,6 @@ void interpretProgram(istream& inf, ostream& outf)
 {
 	vector<Statement *> program;
 	parseProgram( inf, program );
-	
+
 	// Incomplete;  TODO:  Finish this function!
 }
-

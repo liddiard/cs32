@@ -25,18 +25,13 @@
 
 class LetStatement: public Statement
 {
+public:
+	LetStatement(char variableName, int value);
+	virtual void execute(ProgramState * state, std::ostream &outf);
+
 private:
 	char m_variableName;
 	int m_value;
-
-
-public:
-	LetStatement(char variableName, int value);
-	
-	virtual void execute(ProgramState * state, std::ostream &outf);
 };
 
 #endif
-
-
-
