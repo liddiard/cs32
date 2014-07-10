@@ -39,6 +39,7 @@ public:
 	ProgramState(int numLines);
     void incrementCounter();
     void incrementCounter(int line);
+    bool setVariable(char var, int val);
 
 	// You'll need to add a variety of methods here.  Rather than trying to
 	// think of what you'll need to add ahead of time, add them as you find

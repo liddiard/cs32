@@ -21,3 +21,8 @@ void ProgramState::setCounter(int line)
 {
     this->program_counter = line;
 }
+
+bool ProgramState::setVariable(char var, int value)
+{
+      
+}
