@@ -1,6 +1,7 @@
 // Facile.cpp
 #include "Statement.h"
 #include "LetStatement.h"
+#include "PrintStatement.h"
 #include <vector>
 #include <string>
 #include <sstream>
@@ -50,6 +51,14 @@ void parseProgram(istream &inf, vector<Statement *> & program)
 	while( ! inf.eof() )
 	{
 		getline(inf, line);
+
+        stringstream ss;
+        string type;
+
+        ss << line;
+        ss >> type;
+        if (type == ".") break; // end of program
+
 		program.push_back( parseLine( line ) );
 	}
 }
@@ -77,6 +86,13 @@ Statement * parseLine(string line)
 		statement = new LetStatement(var, val);
 	}
 
+    else if ( type == "PRINT" )
+    {
+        ss >> var;
+        statement = new PrintStatement(var);
+    }
+
+
 	// Incomplete;  TODO:  Finish this function!
 
 
@@ -91,4 +107,11 @@ void interpretProgram(istream& inf, ostream& outf)
 	parseProgram( inf, program );
 
 	// Incomplete;  TODO:  Finish this function!
+
+    ProgramState* state = new ProgramState(program.size());
+
+    for (int i = 1; i < program.size(); i++)
+    {
+        program[i]->execute(state, outf);
+    }
 }
