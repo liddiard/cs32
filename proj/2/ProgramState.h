@@ -38,6 +38,7 @@ public:
 	ProgramState(int numLines);
     void incrementCounter();
     void setCounter(int line);
+    int getVariable(char var) const;
     bool setVariable(char var, int val);
 
 	// You'll need to add a variety of methods here.  Rather than trying to
@@ -49,6 +50,9 @@ private:
 	int m_numLines;
     int program_counter;
     Variable variables[ALPHABET_LENGTH];
+    int charToArrayPosition(char c) const;
+    char arrayPositionToChar(int i) const;
+    bool arrayPositionInBounds(int pos) const;
 };
 
 #endif
