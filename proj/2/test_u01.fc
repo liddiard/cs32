@@ -1,3 +1,7 @@
 LET A 5
+ADD A 1
+SUB A 10
+MULT A 2
+DIV A 3
 PRINT A
       .

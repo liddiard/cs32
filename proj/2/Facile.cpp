@@ -2,6 +2,10 @@
 #include "Statement.h"
 #include "LetStatement.h"
 #include "PrintStatement.h"
+#include "AddStatement.h"
+#include "SubStatement.h"
+#include "MultStatement.h"
+#include "DivStatement.h"
 #include <vector>
 #include <string>
 #include <sstream>
@@ -92,6 +96,34 @@ Statement * parseLine(string line)
         statement = new PrintStatement(var);
     }
 
+    else if ( type == "ADD" )
+    {
+        ss >> var;
+        ss >> val;
+        statement = new AddStatement(var, val);
+    }
+
+    else if ( type == "SUB" )
+    {
+        ss >> var;
+        ss >> val;
+        statement = new SubStatement(var, val);
+    }
+
+    else if ( type == "MULT" )
+    {
+        ss >> var;
+        ss >> val;
+        statement = new MultStatement(var, val);
+    }
+
+    else if ( type == "DIV" )
+    {
+        ss >> var;
+        ss >> val;
+        statement = new DivStatement(var, val);
+    }
+
 
 	// Incomplete;  TODO:  Finish this function!
 
@@ -105,8 +137,6 @@ void interpretProgram(istream& inf, ostream& outf)
 {
 	vector<Statement *> program;
 	parseProgram( inf, program );
-
-	// Incomplete;  TODO:  Finish this function!
 
     ProgramState* state = new ProgramState(program.size());
 
