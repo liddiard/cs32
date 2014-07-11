@@ -6,13 +6,12 @@
 
 class PrintStatement: public Statement
 {
-private:
-	char m_variableName;
-	
 public:
 	PrintStatement(char variableName);
-	
 	virtual void execute(ProgramState * state, std::ostream &outf);
+
+private:
+	char m_variableName;
 };
 
 #endif
