@@ -1,6 +1,8 @@
 #include "ProgramState.h"
 #include "globals.h"
 
+/* PUBLIC METHODS */
+
 ProgramState::ProgramState(int numLines)
 {
     for (int i = 0; i < ALPHABET_LENGTH; i++)
@@ -13,14 +15,19 @@ ProgramState::ProgramState(int numLines)
     this->m_numLines = numLines;
 }
 
-void ProgramState::incrementCounter()
+int ProgramState::getCounter()
 {
-    this->program_counter++;
+    return this->program_counter;
 }
 
 void ProgramState::setCounter(int line)
 {
     this->program_counter = line;
+}
+
+void ProgramState::incrementCounter()
+{
+    this->program_counter++;
 }
 
 int ProgramState::getVariable(char var) const
@@ -39,6 +46,15 @@ bool ProgramState::setVariable(char var, int value)
         return true;
     } else return false;
 }
+
+
+/* PRIVATE METHODS */
+
+bool ProgramState::isInBounds(int line) const
+{
+    return (line > 0 && line <= this->m_numLines);
+}
+
 
 int ProgramState::charToArrayPosition(char c) const
 {

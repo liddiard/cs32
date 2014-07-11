@@ -7,6 +7,7 @@
 #include "MultStatement.h"
 #include "DivStatement.h"
 #include "EndStatement.h"
+#include "GotoStatement.h"
 #include <vector>
 #include <string>
 #include <sstream>
@@ -125,6 +126,12 @@ Statement * parseLine(string line)
         statement = new DivStatement(var, val);
     }
 
+    else if ( type == "GOTO" )
+    {
+        ss >> val;
+        statement = new GotoStatement(val);
+    }
+
     else if ( type == "END" )
     {
         statement = new EndStatement();
@@ -146,8 +153,11 @@ void interpretProgram(istream& inf, ostream& outf)
 
     ProgramState* state = new ProgramState(program.size());
 
-    for (int i = 1; i < program.size(); i++)
+    int line = 1; // point of entry (line 1)
+
+    while (line < program.size())
     {
-        program[i]->execute(state, outf);
+        program[line]->execute(state, outf);
+        line = state->getCounter();
     }
 }
