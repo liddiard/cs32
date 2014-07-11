@@ -3,5 +3,6 @@ ADD A 1
 SUB A 10
 MULT A 2
 DIV A 3
+END
 PRINT A
       .

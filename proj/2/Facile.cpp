@@ -6,6 +6,7 @@
 #include "SubStatement.h"
 #include "MultStatement.h"
 #include "DivStatement.h"
+#include "EndStatement.h"
 #include <vector>
 #include <string>
 #include <sstream>
@@ -122,6 +123,11 @@ Statement * parseLine(string line)
         ss >> var;
         ss >> val;
         statement = new DivStatement(var, val);
+    }
+
+    else if ( type == "END" )
+    {
+        statement = new EndStatement();
     }
 
 
