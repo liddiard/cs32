@@ -7,6 +7,7 @@
 #include "MultStatement.h"
 #include "DivStatement.h"
 #include "GotoStatement.h"
+#include "IfStatement.h"
 #include "GosubStatement.h"
 #include "ReturnStatement.h"
 #include "EndStatement.h"
@@ -132,6 +133,19 @@ Statement * parseLine(string line)
     {
         ss >> val;
         statement = new GotoStatement(val);
+    }
+
+    else if ( type == "IF" )
+    {
+        string op;
+        int dest;
+
+        ss >> var;
+        ss >> op;
+        ss >> val;
+        ss >> dest;
+        
+        statement = new IfStatement(var, op, val, dest);
     }
 
     else if ( type == "GOSUB" )
