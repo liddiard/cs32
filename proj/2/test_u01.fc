@@ -8,5 +8,6 @@ PRINT A
 END
 ADD A 10
 ADD A 10
+IF A <= 10 1
 RETURN
       .
