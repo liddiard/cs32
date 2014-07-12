@@ -43,8 +43,10 @@ public:
 
     int getVariable(char var) const;
     bool setVariable(char var, int val);
-    
+
     bool isInBounds(int line) const;
+
+    Stack<int>* gosub_returns;
 
 	// You'll need to add a variety of methods here.  Rather than trying to
 	// think of what you'll need to add ahead of time, add them as you find

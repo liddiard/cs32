@@ -13,6 +13,7 @@ ProgramState::ProgramState(int numLines)
         this->variables[i] = to_add;
     }
     this->m_numLines = numLines;
+    this->gosub_returns = new Stack<int>;
 }
 
 int ProgramState::getCounter()
