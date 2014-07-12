@@ -1,3 +1,5 @@
+#include <stdlib.h>
+#include <iostream>
 #include "DivStatement.h"
 using namespace std;
 
@@ -9,6 +11,11 @@ void DivStatement::execute(ProgramState * state, ostream &outf)
 {
     char var = this->m_variableName;
     int val = this->m_value;
+    if (val == 0)
+    {
+    	cout << "Divide by zero exception";
+    	exit(1);
+    }
     int original_val = state->getVariable(var);
     int new_val = original_val / val;
     state->setVariable(var, new_val);
