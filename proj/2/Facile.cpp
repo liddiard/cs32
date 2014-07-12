@@ -6,8 +6,10 @@
 #include "SubStatement.h"
 #include "MultStatement.h"
 #include "DivStatement.h"
-#include "EndStatement.h"
 #include "GotoStatement.h"
+#include "GosubStatement.h"
+#include "ReturnStatement.h"
+#include "EndStatement.h"
 #include <vector>
 #include <string>
 #include <sstream>
@@ -130,6 +132,17 @@ Statement * parseLine(string line)
     {
         ss >> val;
         statement = new GotoStatement(val);
+    }
+
+    else if ( type == "GOSUB" )
+    {
+        ss >> val;
+        statement = new GosubStatement(val);
+    }
+
+    else if ( type == "RETURN" )
+    {
+        statement = new ReturnStatement();
     }
 
     else if ( type == "END" )
