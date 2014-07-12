@@ -1,5 +1,8 @@
+#include <stdlib.h>
+#include <iostream>
 #include "ProgramState.h"
 #include "globals.h"
+using namespace std;
 
 /* PUBLIC METHODS */
 
@@ -13,6 +16,7 @@ ProgramState::ProgramState(int numLines)
         this->variables[i] = to_add;
     }
     this->m_numLines = numLines;
+    this->program_counter = 1; // point of entry is line 1
     this->gosub_returns = new Stack<int>;
 }
 
@@ -23,7 +27,13 @@ int ProgramState::getCounter()
 
 void ProgramState::setCounter(int line)
 {
-    this->program_counter = line;
+    if (this->isInBounds(this->m_numLines))
+        this->program_counter = line;
+    else
+    {
+        cout << "Illegal jump instruction";
+        exit(1);
+    }
 }
 
 void ProgramState::incrementCounter()
