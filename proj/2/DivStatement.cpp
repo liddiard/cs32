@@ -13,7 +13,7 @@ void DivStatement::execute(ProgramState * state, ostream &outf)
     int val = this->m_value;
     if (val == 0)
     {
-    	cout << "Divide by zero exception";
+    	cout << endl << "Divide by zero exception" << endl;
     	exit(1);
     }
     int original_val = state->getVariable(var);

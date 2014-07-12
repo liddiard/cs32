@@ -31,7 +31,7 @@ void ProgramState::setCounter(int line)
         this->program_counter = line;
     else
     {
-        cout << "Illegal jump instruction";
+        cout << endl << "Illegal jump instruction" << endl;
         exit(1);
     }
 }
