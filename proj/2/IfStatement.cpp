@@ -13,7 +13,7 @@ void IfStatement::execute(ProgramState * state, ostream &outf)
     int comparison = this->m_comparison;
     bool statement_is_true = this->checkCondition(val, this->m_op, comparison);
     if (statement_is_true)
-    	state->setCounter(this->m_destination);
+    	state->setCounter(this->m_destination, outf);
     else state->incrementCounter();
 }
 

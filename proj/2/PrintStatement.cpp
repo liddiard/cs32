@@ -9,6 +9,6 @@ PrintStatement::PrintStatement(char variableName)
 void PrintStatement::execute(ProgramState * state, std::ostream &outf)
 {
 	char var = this->m_variableName;
-	std::cout << state->getVariable(var);
+	outf << state->getVariable(var);
 	state->incrementCounter();
 }

@@ -10,5 +10,5 @@ void GosubStatement::execute(ProgramState * state, ostream &outf)
 {
     int line = this->m_line;
     state->gosub_returns->push(state->getCounter()+1);
-    state->setCounter(line);
+    state->setCounter(line, outf);
 }

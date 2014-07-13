@@ -23,6 +23,7 @@
 #ifndef PROGRAM_STATE_INCLUDED
 #define PROGRAM_STATE_INCLUDED
 
+#include <iostream>
 #include "globals.h"
 #include "Stack.h"
 
@@ -38,7 +39,7 @@ public:
 	ProgramState(int numLines);
 
     int getCounter();
-    void setCounter(int line);
+    void setCounter(int line, std::ostream &outf);
     void incrementCounter();
 
     int getVariable(char var) const;

@@ -25,13 +25,13 @@ int ProgramState::getCounter()
     return this->program_counter;
 }
 
-void ProgramState::setCounter(int line)
+void ProgramState::setCounter(int line, ostream &outf)
 {
     if (this->isInBounds(this->m_numLines))
         this->program_counter = line;
     else
     {
-        cout << endl << "Illegal jump instruction" << endl;
+        outf << endl << "Illegal jump instruction" << endl;
         exit(1);
     }
 }

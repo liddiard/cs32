@@ -7,5 +7,5 @@ GotoStatement::GotoStatement(int line)
 
 void GotoStatement::execute(ProgramState * state, ostream &outf)
 {
-    state->setCounter(this->m_line);
+    state->setCounter(this->m_line, outf);
 }
