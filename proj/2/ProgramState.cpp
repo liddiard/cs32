@@ -27,7 +27,7 @@ int ProgramState::getCounter()
 
 void ProgramState::setCounter(int line, ostream &outf)
 {
-    if (this->isInBounds(this->m_numLines))
+    if (this->isInBounds(line))
         this->program_counter = line;
     else
     {
