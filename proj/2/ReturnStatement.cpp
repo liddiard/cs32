@@ -10,7 +10,7 @@ void ReturnStatement::execute(ProgramState * state, ostream &outf)
     Stack<int>* gosub_returns = state->gosub_returns;
     if (gosub_returns->empty()) // RETURN was encountered outside subroutine
     {
-        outf << endl << "Illegal return statement" << endl;
+        outf << "Illegal return statement" << endl;
         exit(1);
     }
         int return_line = gosub_returns->top();

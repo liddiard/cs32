@@ -31,7 +31,7 @@ void ProgramState::setCounter(int line, ostream &outf)
         this->program_counter = line;
     else
     {
-        outf << endl << "Illegal jump instruction" << endl;
+        outf << "Illegal jump instruction" << endl;
         exit(1);
     }
 }
