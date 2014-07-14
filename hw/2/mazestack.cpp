@@ -2,6 +2,8 @@
 #include <iostream> // TODO: remove
 using namespace std;
 
+const int NUM_DIRECTIONS = 4;
+
 class Coord
 {
 public:
@@ -13,19 +15,20 @@ private:
     int m_c;
 };
 
-bool visit (int row, int col, stack<Coord> &coordStack, char maze[][10])
+bool movable(char position) { return (position != 'X' && position != '*'); }
+
+void visit(int row, int col, char maze[][10], stack<Coord>& coordStack)
 {
     coordStack.push(Coord(row, col));
     maze[row][col] = '*';
-    cout << "pushing " << row << "," << col << endl;
 }
-
-bool movable(char position) { return (position != 'X' && position != '*'); }
 
 bool findsMinotaur(char maze[][10], int er, int ec)
 {
     stack<Coord> coordStack;
-    visit(er, ec, coordStack, maze);
+    if (maze[er][ec] == 'M') return true; // we've found the minotaur!
+
+    visit(er, ec, maze, coordStack);
 
     while (!coordStack.empty())
     {
@@ -33,24 +36,23 @@ bool findsMinotaur(char maze[][10], int er, int ec)
         coordStack.pop();
         int row = cur.r();
         int col = cur.c();
-        cout << maze[row][col] << " ";
-        if (maze[row][col] == 'M') return true; // we've found the minotaur!
- 
-        if (movable(maze[row][col+1]))
+
+        Coord coords_to_try[NUM_DIRECTIONS] = {Coord(row, col+1), Coord(row+1, col), Coord(row, col-1), Coord(row-1, col)};
+
+        for (int i = 0; i < NUM_DIRECTIONS; i++)
         {
-            visit(row, col+1, coordStack, maze); 
-        }
-        if (movable(maze[row+1][col]))
-        {
-            visit(row+1, col, coordStack, maze); 
-        }
-        if (movable(maze[row][col-1]))
-        {
-            visit(row, col-1, coordStack, maze); 
-        }
-        if (movable(maze[row-1][col]))
-        {
-            visit(row-1, col, coordStack, maze); 
+            int t_row = coords_to_try[i].r();
+            int t_col = coords_to_try[i].c();
+            if (movable(maze[t_row][t_col]))
+            {
+                if (maze[t_row][t_col] == 'M') 
+                {
+                    cout << "Solvable at " << t_row << "," << t_col << endl;
+                    return true; // we've found the minotaur!
+                }
+                visit(t_row, t_col, maze, coordStack);
+                cout << "pushing " << t_row << "," << t_col << endl;
+            }
         }
     }
     return false; // no path to minotaur
