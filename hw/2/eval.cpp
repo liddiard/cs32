@@ -1,6 +1,7 @@
 #include <string>
 #include <stack>
 #include <iostream>
+using namespace std;
 
 const int NUM_SYMBOLS = 3;
 
@@ -28,9 +29,9 @@ bool contains(const char arr[], char find)
     return false;
 }
 
-bool balanced(std::string expr)
+bool balanced(string expr)
 {
-    std::stack<char> symbols;
+    stack<char> symbols;
     for (int i = 0; i < expr.size(); i++)
     {
         if (contains(opening_symbol, expr[i]))
@@ -60,5 +61,5 @@ bool balanced(std::string expr)
 
 int main()
 {
-    std::cout << balanced("([)]") << std::endl;
+    cout << balanced("([)]") << endl;
 }
