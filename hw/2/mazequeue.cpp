@@ -1,5 +1,5 @@
 #include <queue>
-#include <iostream> // TODO: remove
+#include <iostream> 
 using namespace std;
 
 const int NUM_DIRECTIONS = 4;
@@ -47,11 +47,9 @@ bool findsMinotaur(char maze[][10], int er, int ec)
             {
                 if (maze[t_row][t_col] == 'M') 
                 {
-                    cout << "Solvable at " << t_row << "," << t_col << endl;
                     return true; // we've found the minotaur!
                 }
                 visit(t_row, t_col, maze, coordQueue);
-                cout << "pushing " << t_row << "," << t_col << endl;
             }
         }
     }
