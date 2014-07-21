@@ -32,15 +32,16 @@ class NoisyClass {
       }
 };
 
-// Start with a warmup...
-struct SoMeta {
-    NoisyClass n[2];
-    NoisyClass* ptr[2];
-};
+NoisyClass whatsAllThisNoise (NoisyClass* n) {
+if (n != nullptr) {
+NoisyClass copier("test");
+return copier;
+} else {
+return NoisyClass();
+}
+}
 
 int main () {
-    SoMeta s;
-    SoMeta* ptr;
-    SoMeta* dynamicYo = new SoMeta();
-    delete dynamicYo;
+NoisyClass n;
+whatsAllThisNoise(&n);
 }
