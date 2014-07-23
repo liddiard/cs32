@@ -1,0 +1,29 @@
+#2 (Stack)
+6,4
+6,5
+5,4
+4,4
+4,5
+3,4
+2,4
+1,4
+1,5
+1,3
+1,2
+
+#4 (Queue)
+6,4
+6,5
+5,4
+6,6
+7,5
+4,4
+8,5
+4,5
+3,4
+8,6
+4,6
+
+The stack algorithim finds one direction/path and explores it fully. If it doesn't find the minotaur, it'll come back and try a different one. The queue algorithim, on the other hand, searches exhaustively starting in its immediate vicinity; it doesn't "venture out" until it has completed searching everything closest to the starting position first. The first behaves like a rat running through a maze while the second behaves like a pool of liquid spreading out. One "picks a path and goes for it", while the other "spreads out and fills every opening".
+
+The reason for this is patently the only variable that was changed: the data structure used, or rather the method of retrieval from the data structure. The stack can pop off coordinates it just put on, and that results in a more "directional" approach to solving the problem. The queue, conversely, has to start "at the back" with the first option it found. In this particular maze setup, the stack implementation was more efficient (took less steps) to solve the problem.

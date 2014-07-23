@@ -1,4 +1,4 @@
-#include <stack>
+#include <queue>
 #include <iostream> 
 using namespace std;
 
@@ -17,23 +17,23 @@ private:
 
 bool movable(char position) { return (position != 'X' && position != '*'); }
 
-void visit(int row, int col, char maze[][10], stack<Coord>& coordStack)
+void visit(int row, int col, char maze[][10], queue<Coord>& coordQueue)
 {
-    coordStack.push(Coord(row, col));
+    coordQueue.push(Coord(row, col));
     maze[row][col] = '*';
 }
 
 bool findsMinotaur(char maze[][10], int er, int ec)
 {
-    stack<Coord> coordStack;
+    queue<Coord> coordQueue;
     if (maze[er][ec] == 'M') return true; // we've found the minotaur!
 
-    visit(er, ec, maze, coordStack);
+    visit(er, ec, maze, coordQueue);
 
-    while (!coordStack.empty())
+    while (!coordQueue.empty())
     {
-        Coord cur = coordStack.top();
-        coordStack.pop();
+        Coord cur = coordQueue.front();
+        coordQueue.pop();
         int row = cur.r();
         int col = cur.c();
 
@@ -49,7 +49,7 @@ bool findsMinotaur(char maze[][10], int er, int ec)
                 {
                     return true; // we've found the minotaur!
                 }
-                visit(t_row, t_col, maze, coordStack);
+                visit(t_row, t_col, maze, coordQueue);
             }
         }
     }
