@@ -7,9 +7,10 @@ class Highlight
 {
     public:
         Highlight(string player);
-        string star() const;
+        virtual ~Highlight();
+        void star() const;
         virtual string type() const = 0;
-        virtual string commentary() const = 0;
+        virtual void commentary() const = 0;
 
     private:
         string m_star;
@@ -20,17 +21,20 @@ Highlight::Highlight(string star)
     this->m_star = star;
 }
 
-string Highlight::star() const
+Highlight::~Highlight() {}
+
+void Highlight::star() const
 {
-    return this->m_star;
+    cout << this->m_star;
 }
 
 class PassingPlay : public Highlight
 {
     public:
         PassingPlay(string player, int yards);
+        ~PassingPlay();
         virtual string type() const;
-        virtual string commentary();
+        virtual void commentary() const;
 
     private:
         int m_yards;
@@ -39,16 +43,19 @@ class PassingPlay : public Highlight
 class RunningPlay : public Highlight
 {
     public:
+        RunningPlay(string player);
+        ~RunningPlay();
         virtual string type() const;
-        virtual string commentary() const;
+        virtual void commentary() const;
 };
 
 class Interception : public Highlight
 {
     public:
         Interception(string player, bool score);
+        ~Interception();
         virtual string type() const;
-        virtual string commentary() const;
+        virtual void commentary() const;
 
     private:
         bool m_score;
@@ -59,25 +66,30 @@ PassingPlay::PassingPlay(string player, int yards) : Highlight(player)
     this->m_yards = yards;
 }
 
+PassingPlay::~PassingPlay() {}
+
 string PassingPlay::type() const
 {
     return "Passing play";
 }
 
-string PassingPlay::commentary() 
+void PassingPlay::commentary() const
 {
-    char numstr[21]; // enough to hold all numbers up to 64-bits
-    return "complete for " + iota(this->m_yards, numstr, 10) + " yards!"; 
+    cout << "complete for " << this->m_yards << " yards!";
 }
+
+RunningPlay::RunningPlay(string player) : Highlight(player) {}
+
+RunningPlay::~RunningPlay() {}
 
 string RunningPlay::type() const
 {
     return "Running play";
 }
 
-string RunningPlay::commentary() const
+void RunningPlay::commentary() const
 {
-    return "that will keep the defense honest!";
+    cout << "that will keep the defense honest!";
 }
 
 Interception::Interception(string player, bool score) : Highlight(player)
@@ -85,17 +97,19 @@ Interception::Interception(string player, bool score) : Highlight(player)
     this->m_score = score;
 }
 
+Interception::~Interception() {}
+
 string Interception::type() const
 {
     return "Interception";
 }
 
-string Interception::commentary() const
+void Interception::commentary() const
 {
     if (this->m_score)
-        return "Good for a score!";
+        cout << "Good for a score!";
     else
-        return "That will change the game!";
+        cout << "That will change the game!";
 }
 
 
