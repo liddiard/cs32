@@ -9,6 +9,9 @@ const int SCREEN_HEIGHT = 25;
 const int TANK_X = 0;
 const int TANK_Y = 0;
 
+const int TANK_WIDTH = 10;
+const int TANK_HEIGHT = 18;
+
 const int PROMPT_Y = 20;
 const int PROMPT_X = 0;
 
@@ -29,7 +32,7 @@ const int NEXT_PIECE_Y = 4;
 
 Game::Game(int width, int height)
  : m_screen(SCREEN_WIDTH, SCREEN_HEIGHT), m_level(1),
-   m_width(width), m_height(height)
+   m_tank(TANK_WIDTH, TANK_HEIGHT)
 {
 }
 

@@ -6,6 +6,7 @@ class Screen;
 class Tank
 {
   public:
+  	Tank(int width, int height);
     void display(Screen& screen, int x, int y);
 
   private:
