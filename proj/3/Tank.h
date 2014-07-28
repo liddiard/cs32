@@ -7,7 +7,7 @@ class Tank
 {
   public:
   	Tank(int width, int height);
-    void display(Screen& screen, int x, int y);
+    void display(Screen& screen, int x_offset, int y_offset);
 
   private:
     int m_width;
