@@ -28,7 +28,8 @@ const int NEXT_PIECE_X = 16;
 const int NEXT_PIECE_Y = 4;
 
 Game::Game(int width, int height)
- : m_screen(SCREEN_WIDTH, SCREEN_HEIGHT), m_level(1)
+ : m_screen(SCREEN_WIDTH, SCREEN_HEIGHT), m_level(1),
+   m_width(width), m_height(height)
 {
 }
 
