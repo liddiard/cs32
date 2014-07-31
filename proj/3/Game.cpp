@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Tank.h"
 #include "UserInterface.h"
+#include "Piece.h"
 #include <string>
 
 
@@ -14,6 +15,8 @@ Game::Game(int width, int height)
 void Game::play()
 {
     m_tank.display(m_screen, TANK_X, TANK_Y);
+    Piece * ipiece = new IPiece(&m_screen);
+    ipiece->displayAtPosition(4, 0);
     displayStatus();  //  score, rows left, level
     displayPrompt("Press the Enter key to begin playing Imitris!");
     waitForEnter();  // [in UserInterface.h]
