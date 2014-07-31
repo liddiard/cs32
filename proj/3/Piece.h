@@ -14,7 +14,7 @@ public:
 	void setXPosition(int x);
 	void setYPosition(int y);
 	void displayAtPosition(int x_offset, int y_offset);
-	// void fallOne();
+	void fallOne();
 	// void fallAll();
 	// void rotateClockwise();
 	// void rotateCounterclockwise();
