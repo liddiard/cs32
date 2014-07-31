@@ -8,7 +8,11 @@ class Screen;
 class Piece
 {
 public:
-	Piece();
+	Piece(Screen * scr);
+	const int getXPosition();
+	const int getYPosition();
+	void setXPosition(int x);
+	void setYPosition(int y);
 	void displayAtPosition(int x_offset, int y_offset);
 	// void fallOne();
 	// void fallAll();
@@ -16,14 +20,17 @@ public:
 	// void rotateCounterclockwise();
 
 private:
-	char m_piece[PIECE_HEIGHT][PIECE_WIDTH];
 	Screen * m_screen;
+	static char m_piece[PIECE_HEIGHT][PIECE_WIDTH];
+	int m_x; // offset of piece's top left corner 
+	int m_y; // from the top left corner of the game
+	bool m_falling; // is the piece falling or at rest?
 };
 
 class IPiece : public Piece
 {
 public:
-	IPiece(Screen * scr, char piece[][]);
+	IPiece(Screen * scr);
 };
 
 #endif
