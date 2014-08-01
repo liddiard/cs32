@@ -4,6 +4,7 @@
 #include <vector>
 
 class Screen;
+class Piece;
 
 class Tank
 {
@@ -17,7 +18,7 @@ class Tank
     int m_height;
     int m_x_offset;
     int m_y_offset;
-    vector<Piece *> pieces;
+    std::vector<Piece *> pieces;
 };
 
 #endif // TANK_INCLUDED

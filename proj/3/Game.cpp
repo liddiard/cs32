@@ -4,6 +4,7 @@
 #include "UserInterface.h"
 #include "Piece.h"
 #include <string>
+#include <iostream> // TODO: remove
 
 
 Game::Game(int width, int height)
@@ -14,7 +15,7 @@ Game::Game(int width, int height)
 
 void Game::play()
 {
-    m_tank.display(m_screen, TANK_X, TANK_Y);
+    m_tank.display(m_screen);
     Piece * ipiece = new IPiece(&m_screen);
     ipiece->displayAtPosition(4, 0);
     displayStatus();  //  score, rows left, level
@@ -46,5 +47,9 @@ void Game::displayStatus()
 
 bool Game::playOneLevel()
 {
+    while (1)
+    {
+        std::cout << getMsecSinceStart();
+    }
     return false;  // [Replace this with the code to play a level.]
 }
