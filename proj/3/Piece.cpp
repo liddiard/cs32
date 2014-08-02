@@ -29,7 +29,7 @@ void Piece::displayAtPosition(int x_offset, int y_offset)
 	    		}
     	}
     }
-    // update the object's knowledge of where it is
+    // update the Pieces's internal representation of where it is
     this->setXPosition(x_offset);
     this->setYPosition(y_offset);
 }
