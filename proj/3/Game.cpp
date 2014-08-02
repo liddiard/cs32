@@ -4,6 +4,7 @@
 #include "UserInterface.h"
 #include "Piece.h"
 #include <string>
+#include <algorithm>
 #include <iostream> // TODO: remove
 
 
@@ -47,9 +48,15 @@ void Game::displayStatus()
 
 bool Game::playOneLevel()
 {
-    while (1)
+    unsigned long cur_tic = 1;
+    double tic_interval = std::max(1000-(100*(m_level-1)), 100); // time between successive falls
+    while(1)
     {
-        std::cout << getMsecSinceStart();
+        if (getMsecSinceStart() > tic_interval * cur_tic)
+        {
+            std::cout << "tic" << std::endl;
+            cur_tic++;
+        }
     }
     return false;  // [Replace this with the code to play a level.]
 }
