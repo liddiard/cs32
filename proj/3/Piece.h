@@ -14,6 +14,7 @@ public:
 	void setPosition(int x, int y);
 	void display();
 	void fallOne();
+	char getCharAt(int x, int y);
 	// void fallAll();
 	// void rotateClockwise();
 	// void rotateCounterclockwise();

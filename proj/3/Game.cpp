@@ -10,7 +10,7 @@
 
 Game::Game(int width, int height)
  : m_screen(SCREEN_WIDTH, SCREEN_HEIGHT), m_level(1),
-   m_tank(TANK_WIDTH, TANK_HEIGHT)
+   m_tank(width, height)
 {
 }
 
@@ -18,7 +18,7 @@ void Game::play()
 {
     m_tank.display(m_screen);
     Piece * ipiece = new IPiece(&m_screen);
-    m_tank.addPiece(ipiece);
+    m_tank.setPiece(ipiece);
     displayStatus();  //  score, rows left, level
     displayPrompt("Press the Enter key to begin playing Imitris!");
     waitForEnter();  // [in UserInterface.h]
@@ -50,14 +50,13 @@ bool Game::playOneLevel()
 {
     unsigned long cur_tic = 1;
     double tic_interval = std::max(1000-(100*(m_level-1)), 100); // time between successive falls
+    double level_start_time = getMsecSinceStart();
+    m_tank.redrawContents(m_screen);
     while(1)
     {
-        if (getMsecSinceStart() > tic_interval * cur_tic)
+        if (getMsecSinceStart() - level_start_time > tic_interval * cur_tic)
         {
-            for (std::vector<Piece *>::iterator it = m_tank.getPieces()->begin(); it != m_tank.getPieces()->end(); ++it)
-            {
-                (*it)->fallOne();
-            }
+            m_tank.getPiece()->fallOne();
             m_tank.redrawContents(m_screen);
             cur_tic++;
         }

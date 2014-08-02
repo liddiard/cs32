@@ -11,6 +11,11 @@ const int Piece::getYPosition() { return m_y; }
 
 void Piece::setPosition(int x, int y) { m_x = x; m_y = y; }
 
+char Piece::getCharAt(int x, int y)
+{
+	return m_piece[x][y];
+}
+
 void Piece::display()
 {
     // for each character in each row, move the cursor there and print the character

@@ -1,26 +1,42 @@
 #include <vector>
 #include "Tank.h"
-#include "globals.h"
 #include "UserInterface.h"
 #include "Piece.h"
+#include "globals.h"
 
-Tank::Tank(int width, int height)
+Tank::Tank(int width, int height) : m_width(width), m_height(height), m_x_offset(TANK_X), m_y_offset(TANK_Y)
 {
-	m_width = width;
-	m_height = height;
-    m_x_offset = TANK_X;
-    m_y_offset = TANK_Y;
+	for (int i = 0; i < m_height; i++)
+	{
+		std::vector<char> tmp;
+		for (int j = 0; j < m_width; j++)
+			tmp.push_back(' ');
+		m_raster.push_back(tmp);
+	}
 }
 
-std::vector<Piece *> * Tank::getPieces()
+Piece * Tank::getPiece() // get the currently falling piece
 {
-	return &m_pieces;
+	return m_cur_piece;
 }
 
-
-void Tank::addPiece(Piece * piece)
+void Tank::setPiece(Piece * piece)
 {
-	m_pieces.push_back(piece);
+	m_cur_piece = piece;
+}
+
+void Tank::rasterizePiece()
+{
+	const char FLATTENED_PIECE = '#';
+    // for each character in each row, move the cursor there and set the character
+    for (int i = 0; i < PIECE_HEIGHT; i++) // for each row of the piece
+    {
+    	for (int j = 0; j < PIECE_WIDTH; j++) // for each column of the piece row
+    	{
+    		if (m_cur_piece->getCharAt(i, j) != ' ') // don't set the character if it's blank (a space char)
+    			m_raster[m_cur_piece->getXPosition()+j][m_cur_piece->getYPosition()+i] = FLATTENED_PIECE;
+    	}
+    }
 }
 
 void Tank::display(Screen& screen)
@@ -57,13 +73,9 @@ void Tank::redrawContents(Screen& screen)
 		for (int j = m_x_offset; j < (m_x_offset + m_width); j++)
 		{
 			screen.gotoXY(j + 1, i); // x-axis is offset by one because tank wall has a width of 1 column
-			screen.printChar(' ');
+			screen.printChar(m_raster[i][j]);
 		}
 	}
-	// print pieces in their current positions
-	for (std::vector<Piece *>::iterator it = m_pieces.begin(); it != m_pieces.end(); ++it)
-	{
-		(*it)->display();
-	}
+	m_cur_piece->display(); // print currently falling piece
 	screen.refresh();
 }
