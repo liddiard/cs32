@@ -11,9 +11,8 @@ public:
 	Piece(Screen * scr);
 	const int getXPosition();
 	const int getYPosition();
-	void setXPosition(int x);
-	void setYPosition(int y);
-	void displayAtPosition(int x_offset, int y_offset);
+	void setPosition(int x, int y);
+	void display();
 	void fallOne();
 	// void fallAll();
 	// void rotateClockwise();

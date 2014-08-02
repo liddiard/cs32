@@ -25,6 +25,9 @@ const int LEVEL_Y = 10;
 const int PIECE_WIDTH = 4;
 const int PIECE_HEIGHT = 4;
 
+const int PIECE_INITIAL_X = 3;
+const int PIECE_INITIAL_Y = 0;
+
 const int NEXT_PIECE_TITLE_X = 16;
 const int NEXT_PIECE_TITLE_Y = 3;
 
