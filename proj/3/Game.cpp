@@ -56,7 +56,10 @@ bool Game::playOneLevel()
     {
         if (getMsecSinceStart() - level_start_time > tic_interval * cur_tic)
         {
-            m_tank.getPiece()->fallOne();
+            if (m_tank.pieceCanFall())
+                m_tank.getPiece()->fallOne();
+            else
+                m_tank.rasterizePiece();
             m_tank.redrawContents(m_screen);
             cur_tic++;
         }

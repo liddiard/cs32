@@ -16,6 +16,7 @@ class Tank
     Piece * getPiece();
     void setPiece(Piece * piece);
     void rasterizePiece();
+    bool pieceCanFall();
 
   private:
     int m_width;

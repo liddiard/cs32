@@ -27,16 +27,35 @@ void Tank::setPiece(Piece * piece)
 
 void Tank::rasterizePiece()
 {
-	const char FLATTENED_PIECE = '#';
+	const char FLATTENED_PIECE = '$';
     // for each character in each row, move the cursor there and set the character
     for (int i = 0; i < PIECE_HEIGHT; i++) // for each row of the piece
     {
     	for (int j = 0; j < PIECE_WIDTH; j++) // for each column of the piece row
     	{
     		if (m_cur_piece->getCharAt(i, j) != ' ') // don't set the character if it's blank (a space char)
-    			m_raster[m_cur_piece->getXPosition()+j][m_cur_piece->getYPosition()+i] = FLATTENED_PIECE;
+    			m_raster[m_cur_piece->getYPosition()+i][m_cur_piece->getXPosition()+j] = FLATTENED_PIECE;
     	}
     }
+}
+
+bool Tank::pieceCanFall() // does the piece have room below it to continue falling?
+{
+    for (int i = 0; i < PIECE_HEIGHT; i++) // for each row of the piece
+    {
+    	for (int j = 0; j < PIECE_WIDTH; j++) // for each column of the piece row
+    	{
+    		if (m_cur_piece->getCharAt(i, j) != ' ') // don't check below if there's no part of the piece here
+    		{
+    			if (m_cur_piece->getYPosition() + i + 1 < m_height && 
+    				m_raster[m_cur_piece->getYPosition() + i][m_cur_piece->getXPosition() + j + 1] == ' ')
+    				continue;
+    			else
+    				return false;
+			}
+    	}
+    }
+    return true;
 }
 
 void Tank::display(Screen& screen)

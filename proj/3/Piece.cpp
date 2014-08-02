@@ -2,8 +2,7 @@
 #include "globals.h"
 #include "UserInterface.h"
 
-Piece::Piece(Screen * scr) : m_screen(scr), m_falling(true), 
-							 m_x(PIECE_INITIAL_X), m_y(PIECE_INITIAL_Y)
+Piece::Piece(Screen * scr) : m_screen(scr), m_x(PIECE_INITIAL_X), m_y(PIECE_INITIAL_Y)
 {}
 
 const int Piece::getXPosition() { return m_x; }
