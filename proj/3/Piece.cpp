@@ -65,19 +65,34 @@ bool Piece::inHorizontalBounds(Tank& tank, int pos)
 	return (pos >= tank.getYOffset() && pos < tank.getYOffset() + tank.getHeight());
 }
 
+bool Piece::overlapsFragment(Tank& tank, int row, int col)
+{
+	for (int i = 0; i < PIECE_HEIGHT; i++)
+	{
+		for (int j = 0; j < PIECE_WIDTH; j++)
+		{
+			if (m_piece[i][j] != ' ' && tank.getCharAt(row+i, col+j) != ' ')
+				return true;
+		}
+	}
+	return false;
+}
+
 void Piece::shift(Tank& tank, bool right)
 {
 	if (right)
 	{
 		int right_bound = this->rightBound();
-		if (this->inVerticalBounds(tank, m_x + right_bound + 1))
+		if (this->inVerticalBounds(tank, m_x + right_bound + 1) &&
+			!this->overlapsFragment(tank, m_y, m_x + 1))
 			m_x++;
 	}
 	else // (left)
 	{
 		// find the left bound of the piece in its current orientation
 		int left_bound = this->leftBound();
-		if (this->inVerticalBounds(tank, m_x + left_bound - 1))
+		if (this->inVerticalBounds(tank, m_x + left_bound - 1) &&
+			!this->overlapsFragment(tank, m_y, m_x - 1))
 			m_x--;
 	}
 }
@@ -169,13 +184,15 @@ void CrazyPiece::shift(Tank& tank, bool right)
 	if (!right)
 	{
 		int right_bound = this->rightBound();
-		if (m_x + right_bound + 1 < tank.getXOffset() + tank.getWidth())
+		if (this->inVerticalBounds(tank, m_x + right_bound + 1) &&
+			!this->overlapsFragment(tank, m_y, m_x + 1))
 			m_x++;
 	}
 	else // (left)
 	{
 		int left_bound = this->leftBound();
-		if (m_x + left_bound - 1 >= tank.getXOffset())
+		if (this->inVerticalBounds(tank, m_x + left_bound - 1) &&
+			!this->overlapsFragment(tank, m_y, m_x - 1))
 			m_x--;
 	}
 }

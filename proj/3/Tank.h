@@ -22,7 +22,7 @@ class Tank
     void setNextPiece(Screen& screen);
     void setPiece(Piece * piece);
     Piece * getRandomPiece(Screen& screen);
-    bool pieceCanFall();
+    bool pieceCanFall(Piece * piece);
     const char getCharAt(int row, int col);
     void setCharAt(int row, int col, char ch);
     int clearFilledRows();

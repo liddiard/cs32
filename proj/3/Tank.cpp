@@ -91,22 +91,10 @@ Piece * Tank::getRandomPiece(Screen& screen)
 	}
 }
 
-bool Tank::pieceCanFall() // does the piece have room below it to continue falling?
+bool Tank::pieceCanFall(Piece * piece) // does the piece have room below it to continue falling?
 {
-    for (int i = 0; i < PIECE_HEIGHT; i++) // for each row of the piece
-    {
-    	for (int j = 0; j < PIECE_WIDTH; j++) // for each column of the piece row
-    	{
-    		if (m_cur_piece->getCharAt(i, j) != ' ') // don't check below if there's no part of the piece here
-    		{
-    			if (m_cur_piece->getYPosition() + i + 1 >= m_height) // piece is at the bottom of the tank
-    				return false;
-    			else if (m_raster[m_cur_piece->getYPosition() + i + 1][m_cur_piece->getXPosition() + j] != ' ') // piece directly above an obstruction
-    				return false;
-			}
-    	}
-    }
-    return true;
+    return (piece->inHorizontalBounds(*this, piece->getYPosition()+piece->bottomBound()+1) &&
+			!piece->overlapsFragment(*this, piece->getYPosition()+1, piece->getXPosition()));
 }
 
 bool Tank::changeToNewPiece(Screen& screen) // returns true if piece successfully added; false if no room in tank
@@ -120,7 +108,7 @@ bool Tank::changeToNewPiece(Screen& screen) // returns true if piece successfull
 
 bool Tank::fall(Screen& screen)
 {
-    if (this->pieceCanFall())
+    if (this->pieceCanFall(m_cur_piece))
     {
         this->getPiece()->fallOne();
         return true;
@@ -130,7 +118,7 @@ bool Tank::fall(Screen& screen)
 
 bool Tank::fallAll(Screen& screen)
 {
-	while (this->pieceCanFall())
+	while (this->pieceCanFall(m_cur_piece))
 	{
 		this->getPiece()->fallOne();
 	}
