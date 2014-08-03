@@ -28,11 +28,11 @@ protected:
 	char m_piece[PIECE_WIDTH][PIECE_HEIGHT];
 	int m_x; // offset of piece's top left corner
 	int m_y; // from the top left corner of the game
+	bool inVerticalBounds(Tank& tank, int pos);
+	bool inHorizontalBounds(Tank& tank, int pos);
 
 private:
 	Screen * m_screen;
-	bool inVerticalBounds(Tank& tank, int pos);
-	bool inHorizontalBounds(Tank& tank, int pos);
 };
 
 class IPiece : public Piece
@@ -82,6 +82,7 @@ class VaporPiece : public Piece
 public:
 	VaporPiece(Screen& scr);
 	virtual void rotateClockwise(Tank& tank);
+	virtual void rasterize(Tank& tank);
 };
 
 class FoamPiece : public Piece

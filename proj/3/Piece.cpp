@@ -1,4 +1,5 @@
 #include <algorithm>
+#include <iostream> // TODO: remove
 #include "Piece.h"
 #include "Tank.h"
 #include "globals.h"
@@ -182,6 +183,28 @@ void CrazyPiece::shift(Tank& tank, bool right)
 void FoamPiece::rotateClockwise(Tank& tank) {} // FoamPiece doesn't rotate
 
 void VaporPiece::rotateClockwise(Tank& tank) {} // VaporPiece doesn't rotate
+
+void VaporPiece::rasterize(Tank& tank) // VaporPiece blasts out surrounding chars
+{
+	for (int i = 0; i < PIECE_HEIGHT; i++)
+	{
+		for (int j = 0; j < PIECE_WIDTH; j++)
+		{
+			if (m_piece[i][j] != ' ')
+			{
+				tank.setCharAt(m_y+i, m_x+j, ' ');
+				// clear any fragments within 2 blocks above and below piece
+				const int BLAST_AREA = 4;
+				int in_blast_radius[BLAST_AREA] = {m_y+i+1, m_y+i+2, m_y+i-1, m_y+i-2};
+				for (int i = 0; i < BLAST_AREA; i++)
+				{
+					if (this->inHorizontalBounds(tank, in_blast_radius[i]))
+						tank.setCharAt(in_blast_radius[i], m_x+j, ' ');
+				}
+			}
+		}
+	}
+}
 
 IPiece::IPiece(Screen& scr) : Piece(scr) {
 	for (int i = 0; i < PIECE_HEIGHT; i++)
