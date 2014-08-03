@@ -18,7 +18,7 @@ class Tank
     void display(Screen& screen);
     void redrawContents(Screen& screen);
     Piece * getPiece();
-    Piece * getNextPiece(Screen& screen);
+    bool loadNextPiece(Screen& screen);
     void setNextPiece(Screen& screen);
     void setPiece(Piece * piece);
     Piece * getRandomPiece(Screen& screen);
@@ -27,8 +27,9 @@ class Tank
     const char getCharAt(int row, int col);
     int clearFilledRows();
     void removeRow(int r);
-    void fall(Screen& screen);
-    void fallAll(Screen& screen);
+    bool fall(Screen& screen);
+    bool fallAll(Screen& screen);
+    bool changeToNewPiece(Screen& screen);
 
   private:
     int m_width;

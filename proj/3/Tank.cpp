@@ -59,12 +59,20 @@ const char Tank::getCharAt(int row, int col)
 	return m_raster[row][col];
 }
 
-Piece * Tank::getNextPiece(Screen& screen)
+bool Tank::loadNextPiece(Screen& screen) // returns true if piece was added successfully; false if there's no room
 {
 	delete m_cur_piece;
 	m_cur_piece = m_next_piece;
 	m_next_piece = this->getRandomPiece(screen);
-	return m_next_piece;
+	for (int i = 0; i < PIECE_HEIGHT; i++)
+	{
+		for (int j = 0; j < PIECE_WIDTH; j++)
+		{
+			if (m_raster[m_cur_piece->getYPosition()+i][m_cur_piece->getXPosition()+j] != ' ')
+				return false; // piece overlaps; game over
+		}
+	}
+	return true;
 }
 
 Piece * Tank::getRandomPiece(Screen& screen)
@@ -112,29 +120,32 @@ bool Tank::pieceCanFall() // does the piece have room below it to continue falli
     return true;
 }
 
-void Tank::fall(Screen& screen)
+bool Tank::changeToNewPiece(Screen& screen) // returns true if piece successfully added; false if no room in tank
 {
-    if (this->pieceCanFall())
-        this->getPiece()->fallOne();
-    else
-    {
-        this->rasterizePiece();
-        this->clearFilledRows();
-        this->getNextPiece(screen);
-    }
-    this->redrawContents(screen);
+    this->rasterizePiece();
+    this->clearFilledRows();
+    if (!this->loadNextPiece(screen))
+    	return false;
+    return true;
 }
 
-void Tank::fallAll(Screen& screen)
+bool Tank::fall(Screen& screen)
+{
+    if (this->pieceCanFall())
+    {	
+        this->getPiece()->fallOne();
+        return true;
+    }
+    return this->changeToNewPiece(screen);
+}
+
+bool Tank::fallAll(Screen& screen)
 {
 	while (this->pieceCanFall())
 	{
 		this->getPiece()->fallOne();
 	}
-    this->rasterizePiece();
-    this->clearFilledRows();
-    this->getNextPiece(screen);
-    this->redrawContents(screen);
+    return this->changeToNewPiece(screen);
 }
 
 int Tank::clearFilledRows()

@@ -63,7 +63,8 @@ bool Game::playOneLevel()
                 case ARROW_UP:
                     m_tank.getPiece()->rotateClockwise(m_tank);
                 case ARROW_DOWN:
-                    m_tank.fall(m_screen);
+                    if (!m_tank.fall(m_screen))
+                        return false;
                     last_fall = getMsecSinceStart();
                     break;
                 case ARROW_LEFT:
@@ -73,7 +74,8 @@ bool Game::playOneLevel()
                     m_tank.getPiece()->shift(m_tank, true);
                     break;
                 case ' ':
-                    m_tank.fallAll(m_screen);
+                    if (!m_tank.fallAll(m_screen))
+                        return false;
                     break;
                 case 'q': case 'Q':
                     exit(0); // TODO: fix this. it's being weird in the terminal
@@ -83,7 +85,9 @@ bool Game::playOneLevel()
         }
         if (getMsecSinceStart() > last_fall + tic_interval)
         {
-            m_tank.fall(m_screen);
+            if (!m_tank.fall(m_screen))
+                return false;
+            m_tank.redrawContents(m_screen);
             last_fall = getMsecSinceStart();
         }
     }
