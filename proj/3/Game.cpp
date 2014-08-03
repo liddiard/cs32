@@ -6,7 +6,6 @@
 #include <string>
 #include <algorithm>
 #include <iostream> // TODO: remove
-#include <stdlib.h>
 
 
 Game::Game(int width, int height)
@@ -78,8 +77,7 @@ bool Game::playOneLevel()
                         return false;
                     break;
                 case 'q': case 'Q':
-                    exit(0); // TODO: fix this. it's being weird in the terminal
-                    break;
+                    return false;
             }
             m_tank.redrawContents(m_screen);
         }
