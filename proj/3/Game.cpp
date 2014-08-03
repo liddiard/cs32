@@ -9,7 +9,7 @@
 
 
 Game::Game(int width, int height)
- : m_screen(SCREEN_WIDTH, SCREEN_HEIGHT), m_level(1),
+ : m_screen(SCREEN_WIDTH, SCREEN_HEIGHT), m_level(5),
    m_tank(width, height)
 {
 }
@@ -80,6 +80,7 @@ bool Game::playOneLevel()
             else
             {
                 m_tank.rasterizePiece();
+                m_tank.clearFilledRows();
                 m_tank.getNextPiece(m_screen);
             }
             m_tank.redrawContents(m_screen);

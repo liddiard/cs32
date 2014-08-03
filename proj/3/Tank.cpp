@@ -119,6 +119,36 @@ bool Tank::pieceCanFall() // does the piece have room below it to continue falli
     return true;
 }
 
+int Tank::clearFilledRows()
+{
+	int filled = 0;
+	for (int i = 0; i < m_height; i++)
+	{
+		for (int j = 0; j < m_width; j++)
+		{
+			if (m_raster[i][j] == ' ')
+				break; // we've hit a blank; this row isn't filled
+			else if (j == m_width - 1) // final iteration of the loop
+			{
+				this->removeRow(i);
+				filled++;
+			}
+		}
+	}
+	return filled;
+}
+
+void Tank::removeRow(int r)
+{
+	for (int i = r - 1 ; i > 0; i--) // traverse the array backwards (up) starting from the row above the one to fill
+	{
+		for (int j = 0; j < m_width; j++)
+		{
+			m_raster[i+1][j] = m_raster[i][j];
+		}
+	}
+}
+
 void Tank::display(Screen& screen)
 {
 	const char TANK_CHAR = '@';

@@ -25,6 +25,8 @@ class Tank
     void rasterizePiece();
     bool pieceCanFall();
     const char getCharAt(int row, int col);
+    int clearFilledRows();
+    void removeRow(int r);
 
   private:
     int m_width;
