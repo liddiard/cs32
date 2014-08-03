@@ -38,36 +38,29 @@ void Piece::fallOne()
 	this->setPosition(current_x, current_y + 1);
 }
 
+bool Piece::inVerticalBounds(Tank& tank, int pos)
+{
+	return (pos >= tank.getXOffset() && pos < tank.getXOffset() + tank.getWidth());
+}
+
+bool Piece::inHorizontalBounds(Tank& tank, int pos)
+{
+	return (pos >= tank.getYOffset() && pos < tank.getYOffset() + tank.getHeight());
+}
+
 void Piece::shift(Tank& tank, bool right)
 {
 	if (right)
 	{
-		// find the right bound of the piece in its current orientation
-		int right_bound = 0;
-		for (int i = 0; i < PIECE_HEIGHT; i++)
-		{
-			for (int j = 0; j < PIECE_WIDTH; j++)
-			{
-				if (m_piece[i][j] != ' ' && j > right_bound)
-					right_bound = j;
-			}
-		}
-		if (m_x + right_bound + 1 < tank.getXOffset() + tank.getWidth())
+		int right_bound = this->rightBound();
+		if (this->inVerticalBounds(tank, m_x + right_bound + 1))
 			m_x++;
 	} 
 	else // (left)
 	{
 		// find the left bound of the piece in its current orientation
-		int left_bound = PIECE_WIDTH;
-		for (int i = 0; i < PIECE_HEIGHT; i++)
-		{
-			for (int j = 0; j < PIECE_WIDTH; j++)
-			{
-				if (m_piece[i][j] != ' ' && j < left_bound)
-					left_bound = j;
-			}
-		}
-		if (m_x + left_bound - 1 >= tank.getXOffset())
+		int left_bound = this->leftBound();
+		if (this->inVerticalBounds(tank, m_x + left_bound - 1))
 			m_x--;
 	}
 }
@@ -86,37 +79,75 @@ void Piece::rotateClockwise()
 		std::copy(tmp[i], tmp[i] + PIECE_WIDTH, m_piece[i]);
 }
 
+int Piece::rightBound()
+{
+	int right_bound = 0;
+	for (int i = 0; i < PIECE_HEIGHT; i++)
+	{
+		for (int j = 0; j < PIECE_WIDTH; j++)
+		{
+			if (m_piece[i][j] != ' ' && j > right_bound)
+				right_bound = j;
+		}
+	}
+	return right_bound;
+}
+
+int Piece::leftBound()
+{
+	int left_bound = PIECE_WIDTH;
+	for (int i = 0; i < PIECE_HEIGHT; i++)
+	{
+		for (int j = 0; j < PIECE_WIDTH; j++)
+		{
+			if (m_piece[i][j] != ' ' && j < left_bound)
+				left_bound = j;
+		}
+	}
+	return left_bound;
+}
+
+int Piece::topBound()
+{
+	int top_bound = PIECE_HEIGHT;
+	for (int i = 0; i < PIECE_HEIGHT; i++)
+	{
+		for (int j = 0; j < PIECE_WIDTH; j++)
+		{
+			if (m_piece[i][j] != ' ' && i < top_bound)
+				top_bound = i;
+		}
+	}
+	return top_bound;
+}
+
+int Piece::bottomBound()
+{
+	int bottom_bound = 0;
+	for (int i = 0; i < PIECE_HEIGHT; i++)
+	{
+		for (int j = 0; j < PIECE_WIDTH; j++)
+		{
+			if (m_piece[i][j] != ' ' && i > bottom_bound)
+				bottom_bound = i;
+		}
+	}
+	return bottom_bound;
+}
+
 void CrazyPiece::shift(Tank& tank, bool right)
 {
 	// CrazyPiece shifts the OPPOSITE direction of the key user presses
 	// '!' on line below reverses directions
 	if (!right)
 	{
-		// find the right bound of the piece in its current orientation
-		int right_bound = 0;
-		for (int i = 0; i < PIECE_HEIGHT; i++)
-		{
-			for (int j = 0; j < PIECE_WIDTH; j++)
-			{
-				if (m_piece[i][j] != ' ' && j > right_bound)
-					right_bound = j;
-			}
-		}
+		int right_bound = this->rightBound();
 		if (m_x + right_bound + 1 < tank.getXOffset() + tank.getWidth())
 			m_x++;
 	} 
 	else // (left)
 	{
-		// find the left bound of the piece in its current orientation
-		int left_bound = PIECE_WIDTH;
-		for (int i = 0; i < PIECE_HEIGHT; i++)
-		{
-			for (int j = 0; j < PIECE_WIDTH; j++)
-			{
-				if (m_piece[i][j] != ' ' && j < left_bound)
-					left_bound = j;
-			}
-		}
+		int left_bound = this->leftBound();
 		if (m_x + left_bound - 1 >= tank.getXOffset())
 			m_x--;
 	}

@@ -18,6 +18,10 @@ public:
 	char getCharAt(int row, int col);
 	virtual void shift(Tank& tank, bool right);
 	virtual void rotateClockwise();
+	int rightBound();
+	int leftBound();
+	int topBound();
+	int bottomBound();
 	// void fallAll();
 	// void rotateClockwise();
 	// void rotateCounterclockwise();
@@ -29,6 +33,8 @@ protected:
 
 private:
 	Screen * m_screen;
+	bool inVerticalBounds(Tank& tank, int pos);
+	bool inHorizontalBounds(Tank& tank, int pos);
 };
 
 class IPiece : public Piece
