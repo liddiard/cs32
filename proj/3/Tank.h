@@ -28,6 +28,7 @@ class Tank
     int clearFilledRows();
     void removeRow(int r);
     void fall(Screen& screen);
+    void fallAll(Screen& screen);
 
   private:
     int m_width;

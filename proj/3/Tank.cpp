@@ -102,17 +102,10 @@ bool Tank::pieceCanFall() // does the piece have room below it to continue falli
     	{
     		if (m_cur_piece->getCharAt(i, j) != ' ') // don't check below if there's no part of the piece here
     		{
-    			std::cout << m_cur_piece->getYPosition() << ", ";
     			if (m_cur_piece->getYPosition() + i + 1 >= m_height) // piece is at the bottom of the tank 
-    			{
-    				std::cout << "bottom of tank";
     				return false;
-    			}
     			else if (m_raster[m_cur_piece->getYPosition() + i + 1][m_cur_piece->getXPosition() + j] != ' ') // piece directly above an obstruction
-    			{
-    				std::cout << "running into another piece";
     				return false;
-    			}
 			}
     	}
     }
@@ -129,6 +122,18 @@ void Tank::fall(Screen& screen)
         this->clearFilledRows();
         this->getNextPiece(screen);
     }
+    this->redrawContents(screen);
+}
+
+void Tank::fallAll(Screen& screen)
+{
+	while (this->pieceCanFall())
+	{
+		this->getPiece()->fallOne();
+	}
+    this->rasterizePiece();
+    this->clearFilledRows();
+    this->getNextPiece(screen);
     this->redrawContents(screen);
 }
 

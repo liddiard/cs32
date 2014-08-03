@@ -6,6 +6,7 @@
 #include <string>
 #include <algorithm>
 #include <iostream> // TODO: remove
+#include <stdlib.h>
 
 
 Game::Game(int width, int height)
@@ -70,6 +71,12 @@ bool Game::playOneLevel()
                     break;
                 case ARROW_RIGHT:
                     m_tank.getPiece()->shift(m_tank, true);
+                    break;
+                case ' ':
+                    m_tank.fallAll(m_screen);
+                    break;
+                case 'q': case 'Q':
+                    exit(0); // TODO: fix this. it's being weird in the terminal
                     break;
             }
             m_tank.redrawContents(m_screen);
