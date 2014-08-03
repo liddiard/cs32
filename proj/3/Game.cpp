@@ -55,6 +55,24 @@ bool Game::playOneLevel()
     m_tank.redrawContents(m_screen);
     while(1)
     {
+        char key;
+        if (getCharIfAny(key))
+        {
+            switch(key)
+            {
+                case ARROW_UP:
+                    break;
+                case ARROW_DOWN:
+                    break;
+                case ARROW_LEFT:
+                    m_tank.getPiece()->shift(m_tank, false);
+                    break;
+                case ARROW_RIGHT:
+                    m_tank.getPiece()->shift(m_tank, true);
+                    break;
+            }
+            m_tank.redrawContents(m_screen);
+        }
         if (getMsecSinceStart() - level_start_time > tic_interval * cur_tic)
         {
             if (m_tank.pieceCanFall())

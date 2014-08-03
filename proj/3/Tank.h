@@ -11,6 +11,10 @@ class Tank
 {
   public:
   	Tank(int width, int height);
+    const int getWidth();
+    const int getHeight();
+    const int getXOffset();
+    const int getYOffset();
     void display(Screen& screen);
     void redrawContents(Screen& screen);
     Piece * getPiece();

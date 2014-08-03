@@ -1,5 +1,6 @@
 #include <algorithm>
 #include "Piece.h"
+#include "Tank.h"
 #include "globals.h"
 #include "UserInterface.h"
 
@@ -35,6 +36,20 @@ void Piece::fallOne()
 	int current_x = this->getXPosition();
 	int current_y = this->getYPosition();
 	this->setPosition(current_x, current_y + 1);
+}
+
+void Piece::shift(Tank& tank, bool right)
+{
+	if (right)
+	{
+		if (m_x + PIECE_WIDTH + 1 <= tank.getXOffset() + tank.getWidth())
+			m_x++;
+	} 
+	else // (left)
+	{
+		if (m_x - 1 >= tank.getXOffset())
+			m_x--;
+	}
 }
 
 IPiece::IPiece(Screen& scr) : Piece(scr) {

@@ -4,6 +4,7 @@
 #include "globals.h"
 
 class Screen;
+class Tank;
 
 class Piece
 {
@@ -15,6 +16,7 @@ public:
 	void display();
 	void fallOne();
 	char getCharAt(int row, int col);
+	virtual void shift(Tank& tank, bool right);
 	// void fallAll();
 	// void rotateClockwise();
 	// void rotateCounterclockwise();

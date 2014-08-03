@@ -18,6 +18,11 @@ Tank::Tank(int width, int height) : m_width(width), m_height(height),
 	}
 }
 
+const int Tank::getWidth() { return m_width; }
+const int Tank::getHeight() { return m_height; }
+const int Tank::getXOffset() { return m_x_offset; }
+const int Tank::getYOffset() { return m_y_offset; }
+
 Piece * Tank::getPiece() // get the currently falling piece
 {
 	return m_cur_piece;
