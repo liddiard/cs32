@@ -52,6 +52,20 @@ void Piece::shift(Tank& tank, bool right)
 	}
 }
 
+void Piece::rotateClockwise()
+{
+	char tmp[PIECE_WIDTH][PIECE_HEIGHT];
+	for (int i = 0; i < PIECE_HEIGHT; i++)
+	{
+		for (int j = 0; j < PIECE_WIDTH; j++)
+		{
+			tmp[j][i] = m_piece[i][j];
+		}
+	}
+	for (int i = 0; i < PIECE_HEIGHT; i++)
+		std::copy(tmp[i], tmp[i] + PIECE_WIDTH, m_piece[i]);
+}
+
 IPiece::IPiece(Screen& scr) : Piece(scr) {
 	for (int i = 0; i < PIECE_HEIGHT; i++)
 	{

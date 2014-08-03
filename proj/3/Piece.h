@@ -17,6 +17,7 @@ public:
 	void fallOne();
 	char getCharAt(int row, int col);
 	virtual void shift(Tank& tank, bool right);
+	virtual void rotateClockwise();
 	// void fallAll();
 	// void rotateClockwise();
 	// void rotateCounterclockwise();

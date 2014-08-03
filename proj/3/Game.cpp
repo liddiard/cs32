@@ -61,7 +61,7 @@ bool Game::playOneLevel()
             switch(key)
             {
                 case ARROW_UP:
-                    break;
+                    m_tank.getPiece()->rotateClockwise();
                 case ARROW_DOWN:
                     break;
                 case ARROW_LEFT:
