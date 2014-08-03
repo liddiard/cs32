@@ -9,7 +9,7 @@ class Tank;
 class Piece
 {
 public:
-	Piece(Screen& scr);;
+	Piece(Screen& scr);
 	const int getXPosition();
 	const int getYPosition();
 	void setPosition(int x, int y);

@@ -4,7 +4,8 @@
 #include "Tank.h"
 #include "UserInterface.h"
 #include <string>
-// [Add other #include directives as necessary.]
+
+class Screen;
 
 class Game
 {
@@ -14,13 +15,15 @@ class Game
     bool playOneLevel();
     void displayPrompt(std::string s);
     void displayStatus();
-    // [Add other members as necessary.]
+    Screen * getScreen();
+    void addToScore(int n);
 
   private:
     Tank    m_tank;
     Screen  m_screen;
     int     m_level;
-    // [Add other members as necessary.]
+    int     m_rows_left;
+    int     m_score;
 };
 
 #endif // GAME_INCLUDED

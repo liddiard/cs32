@@ -1,8 +1,10 @@
 #include <vector>
 #include <iostream> // TODO: remove
+#include <cmath>
 #include "Tank.h"
 #include "UserInterface.h"
 #include "Piece.h"
+#include "Game.h"
 #include "globals.h"
 #include "randPieceType.h"
 
@@ -53,11 +55,11 @@ void Tank::setCharAt(int row, int col, char ch)
 	m_raster[row][col] = ch;
 }
 
-bool Tank::loadNextPiece(Screen& screen) // returns true if piece was added successfully; false if there's no room
+bool Tank::loadNextPiece(Game& game) // returns true if piece was added successfully; false if there's no room
 {
 	delete m_cur_piece;
 	m_cur_piece = m_next_piece;
-	m_next_piece = this->getRandomPiece(screen);
+	m_next_piece = this->getRandomPiece(*(game.getScreen()));
 	for (int i = 0; i < PIECE_HEIGHT; i++)
 	{
 		for (int j = 0; j < PIECE_WIDTH; j++)
@@ -102,35 +104,35 @@ bool Tank::pieceCanFall(Piece * piece) // does the piece have room below it to c
 			!piece->overlapsFragment(*this, piece->getYPosition()+1, piece->getXPosition()));
 }
 
-bool Tank::changeToNewPiece(Screen& screen) // returns true if piece successfully added; false if no room in tank
+bool Tank::changeToNewPiece(Game& game) // returns true if piece successfully added; false if no room in tank
 {
     m_cur_piece->rasterize(*this);
-    this->clearFilledRows();
-    if (!this->loadNextPiece(screen))
+    this->clearFilledRows(game);
+    if (!this->loadNextPiece(game))
     	return false;
     return true;
 }
 
-bool Tank::fall(Screen& screen)
+bool Tank::fall(Game& game)
 {
     if (this->pieceCanFall(m_cur_piece))
     {
         this->getPiece()->fallOne();
         return true;
     }
-    return this->changeToNewPiece(screen);
+    return this->changeToNewPiece(game);
 }
 
-bool Tank::fallAll(Screen& screen)
+bool Tank::fallAll(Game& game)
 {
 	while (this->pieceCanFall(m_cur_piece))
 	{
 		this->getPiece()->fallOne();
 	}
-    return this->changeToNewPiece(screen);
+    return this->changeToNewPiece(game);
 }
 
-int Tank::clearFilledRows()
+int Tank::clearFilledRows(Game& game)
 {
 	int filled = 0;
 	for (int i = 0; i < m_height; i++)
@@ -146,6 +148,7 @@ int Tank::clearFilledRows()
 			}
 		}
 	}
+	if (filled > 0) game.addToScore(std::pow(2, (filled-1))*100);
 	return filled;
 }
 

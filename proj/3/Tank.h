@@ -5,6 +5,7 @@
 #include "globals.h"
 
 class Screen;
+class Game;
 class Piece;
 
 class Tank
@@ -19,18 +20,18 @@ class Tank
     void redrawContents(Screen& screen);
     Piece * getPiece(); // get currently falling piece
     Piece * getNextPiece();
-    bool loadNextPiece(Screen& screen);
+    bool loadNextPiece(Game& game);
     void setNextPiece(Screen& screen);
     void setPiece(Piece * piece);
     Piece * getRandomPiece(Screen& screen);
     bool pieceCanFall(Piece * piece);
     const char getCharAt(int row, int col);
     void setCharAt(int row, int col, char ch);
-    int clearFilledRows();
+    int clearFilledRows(Game& game);
     void removeRow(int r);
-    bool fall(Screen& screen);
-    bool fallAll(Screen& screen);
-    bool changeToNewPiece(Screen& screen);
+    bool fall(Game& game);
+    bool fallAll(Game& game);
+    bool changeToNewPiece(Game& game);
 
   private:
     int m_width;

@@ -1,18 +1,22 @@
+#include <string>
+#include <algorithm>
+#include <iostream> // TODO: remove
+#include <sstream>
 #include "globals.h"
 #include "Game.h"
 #include "Tank.h"
 #include "UserInterface.h"
 #include "Piece.h"
-#include <string>
-#include <algorithm>
-#include <iostream> // TODO: remove
-
 
 Game::Game(int width, int height)
  : m_screen(SCREEN_WIDTH, SCREEN_HEIGHT), m_level(6), // TODO: return to default 1 for prod
-   m_tank(width, height)
+   m_tank(width, height), m_score(0)
 {
 }
+
+Screen * Game::getScreen() { return &m_screen; }
+
+void Game::addToScore(int n) { m_score += n; }
 
 void Game::play()
 {
@@ -43,6 +47,16 @@ void Game::displayPrompt(std::string s)
     m_screen.refresh();
 }
 
+std::string intToPaddedStr(int n, int length)
+{
+    std::stringstream ss;
+    ss << n;
+    std::string str = ss.str();
+    while (str.size() < length)
+        str = " " + str;
+    return str;
+}
+
 void Game::displayStatus()
 {
     // next piece
@@ -52,15 +66,17 @@ void Game::displayStatus()
 
     // score
     m_screen.gotoXY(SCORE_X, SCORE_Y);
-    m_screen.printString("Score:     ");
+    m_screen.printStringClearLine("Score:     ");
+    m_screen.printString(intToPaddedStr(m_score, STATUS_NUM_WIDTH));
 
     // rows left
     m_screen.gotoXY(ROWS_LEFT_X, ROWS_LEFT_Y);
-    m_screen.printString("Rows left: ");
+    m_screen.printStringClearLine("Rows left: ");
 
     // level
     m_screen.gotoXY(LEVEL_X, LEVEL_Y);
-    m_screen.printString("Level:     ");    
+    m_screen.printStringClearLine("Level:     ");
+    m_screen.printString(intToPaddedStr(m_level, STATUS_NUM_WIDTH));
 }
 
 bool Game::playOneLevel()
@@ -79,7 +95,7 @@ bool Game::playOneLevel()
                     m_tank.getPiece()->rotateClockwise(m_tank);
                     break;
                 case ARROW_DOWN:
-                    if (!m_tank.fall(m_screen))
+                    if (!m_tank.fall(*this))
                         return false;
                     last_fall = getMsecSinceStart();
                     break;
@@ -90,7 +106,7 @@ bool Game::playOneLevel()
                     m_tank.getPiece()->shift(m_tank, true);
                     break;
                 case ' ':
-                    if (!m_tank.fallAll(m_screen))
+                    if (!m_tank.fallAll(*this))
                         return false;
                     break;
                 case 'q': case 'Q':
@@ -101,7 +117,7 @@ bool Game::playOneLevel()
         }
         if (getMsecSinceStart() > last_fall + tic_interval)
         {
-            if (!m_tank.fall(m_screen))
+            if (!m_tank.fall(*this))
                 return false;
             m_tank.redrawContents(m_screen);
             this->displayStatus();

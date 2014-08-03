@@ -33,4 +33,6 @@ const int NEXT_PIECE_TITLE_Y = 3;
 const int NEXT_PIECE_X = 16;
 const int NEXT_PIECE_Y = 4;
 
+const int STATUS_NUM_WIDTH = 7;
+
 #endif
