@@ -24,6 +24,7 @@ class Tank
     Piece * getRandomPiece(Screen& screen);
     void rasterizePiece();
     bool pieceCanFall();
+    const char getCharAt(int row, int col);
 
   private:
     int m_width;

@@ -54,6 +54,11 @@ void Tank::rasterizePiece()
     }
 }
 
+const char Tank::getCharAt(int row, int col)
+{
+	return m_raster[row][col];
+}
+
 Piece * Tank::getNextPiece(Screen& screen)
 {
 	delete m_cur_piece;

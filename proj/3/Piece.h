@@ -17,7 +17,7 @@ public:
 	void fallOne();
 	char getCharAt(int row, int col);
 	virtual void shift(Tank& tank, bool right);
-	virtual void rotateClockwise();
+	virtual void rotateClockwise(Tank& tank);
 	int rightBound();
 	int leftBound();
 	int topBound();
@@ -83,14 +83,14 @@ class VaporPiece : public Piece
 {
 public:
 	VaporPiece(Screen& scr);
-	virtual void rotateClockwise();
+	virtual void rotateClockwise(Tank& tank);
 };
 
 class FoamPiece : public Piece
 {
 public:
 	FoamPiece(Screen& scr);
-	virtual void rotateClockwise();
+	virtual void rotateClockwise(Tank& tank);
 };
 
 class CrazyPiece : public Piece

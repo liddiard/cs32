@@ -65,14 +65,24 @@ void Piece::shift(Tank& tank, bool right)
 	}
 }
 
-void Piece::rotateClockwise()
+void Piece::rotateClockwise(Tank& tank)
 {
+	// if piece is rotated 90 degrees, top and bottom become the sides, so we check 
+	// those bounds against the bounds of the tank and return if they'd fall outside
+	if (!this->inVerticalBounds(tank, this->topBound() + m_x) || 
+		!this->inVerticalBounds(tank, this->bottomBound() + m_x))
+		return;
+	// check the right side against the bottom of the tank
+	if (!this->inHorizontalBounds(tank, this->rightBound() + m_y))
+		return;
 	char tmp[PIECE_WIDTH][PIECE_HEIGHT];
 	for (int i = 0; i < PIECE_HEIGHT; i++)
 	{
 		for (int j = 0; j < PIECE_WIDTH; j++)
 		{
 			tmp[j][i] = m_piece[PIECE_WIDTH-i-1][j];
+			if (tmp[j][i] != ' ' && tank.getCharAt(j + m_y, i + m_x) != ' ')
+				return; // the rotated piece would overlap with a non-blank char in the tank; abort rotate
 		}
 	}
 	for (int i = 0; i < PIECE_HEIGHT; i++)
@@ -153,9 +163,9 @@ void CrazyPiece::shift(Tank& tank, bool right)
 	}
 }
 
-void FoamPiece::rotateClockwise() {} // FoamPiece doesn't rotate
+void FoamPiece::rotateClockwise(Tank& tank) {} // FoamPiece doesn't rotate
 
-void VaporPiece::rotateClockwise() {} // VaporPiece doesn't rotate
+void VaporPiece::rotateClockwise(Tank& tank) {} // VaporPiece doesn't rotate
 
 IPiece::IPiece(Screen& scr) : Piece(scr) {
 	for (int i = 0; i < PIECE_HEIGHT; i++)
