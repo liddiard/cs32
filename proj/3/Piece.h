@@ -23,13 +23,13 @@ public:
 	int topBound();
 	int bottomBound();
 	virtual void rasterize(Tank& tank);
+	bool inVerticalBounds(Tank& tank, int pos);
+	bool inHorizontalBounds(Tank& tank, int pos);
 
 protected:
 	char m_piece[PIECE_WIDTH][PIECE_HEIGHT];
 	int m_x; // offset of piece's top left corner
 	int m_y; // from the top left corner of the game
-	bool inVerticalBounds(Tank& tank, int pos);
-	bool inHorizontalBounds(Tank& tank, int pos);
 
 private:
 	Screen * m_screen;
@@ -90,6 +90,7 @@ class FoamPiece : public Piece
 public:
 	FoamPiece(Screen& scr);
 	virtual void rotateClockwise(Tank& tank);
+	virtual void rasterize(Tank& tank);
 };
 
 class CrazyPiece : public Piece

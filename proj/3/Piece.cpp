@@ -206,6 +206,33 @@ void VaporPiece::rasterize(Tank& tank) // VaporPiece blasts out surrounding char
 	}
 }
 
+void fillWithFoam(Tank& tank, Piece& piece, int row, int col, int times)
+{
+	if (times > 3)
+		return;
+	if (piece.inVerticalBounds(tank, col) &&
+		piece.inHorizontalBounds(tank, row) &&
+		tank.getCharAt(row, col) == ' ')
+		tank.setCharAt(row, col, '*');
+	times++;
+	fillWithFoam(tank, piece, row+1, col, times);
+	fillWithFoam(tank, piece, row-1, col, times);
+	fillWithFoam(tank, piece, row, col+1, times);
+	fillWithFoam(tank, piece, row, col-1, times);
+}
+
+void FoamPiece::rasterize(Tank& tank) // FoamPiece fills surrounding areas with "foam"
+{
+	for (int i = 0; i < PIECE_HEIGHT; i++)
+	{
+		for (int j = 0; j < PIECE_WIDTH; j++)
+		{
+			if (m_piece[i][j] != ' ')
+				fillWithFoam(tank, *this, m_y+i, m_x+j, 0);
+		}
+	}
+}
+
 IPiece::IPiece(Screen& scr) : Piece(scr) {
 	for (int i = 0; i < PIECE_HEIGHT; i++)
 	{
