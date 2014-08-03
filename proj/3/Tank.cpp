@@ -119,6 +119,19 @@ bool Tank::pieceCanFall() // does the piece have room below it to continue falli
     return true;
 }
 
+void Tank::fall(Screen& screen)
+{
+    if (this->pieceCanFall())
+        this->getPiece()->fallOne();
+    else
+    {
+        this->rasterizePiece();
+        this->clearFilledRows();
+        this->getNextPiece(screen);
+    }
+    this->redrawContents(screen);
+}
+
 int Tank::clearFilledRows()
 {
 	int filled = 0;

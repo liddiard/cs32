@@ -9,7 +9,7 @@
 
 
 Game::Game(int width, int height)
- : m_screen(SCREEN_WIDTH, SCREEN_HEIGHT), m_level(5),
+ : m_screen(SCREEN_WIDTH, SCREEN_HEIGHT), m_level(6), // TODO: return to default 1 for prod
    m_tank(width, height)
 {
 }
@@ -49,9 +49,8 @@ void Game::displayStatus()
 
 bool Game::playOneLevel()
 {
-    unsigned long cur_tic = 1;
-    double tic_interval = std::max(1000-(100*(m_level-1)), 100); // time between successive falls
-    double level_start_time = getMsecSinceStart();
+    double tic_interval = std::max(1000-(100*(m_level-1)), 100); // milliseconds between successive falls
+    double last_fall = getMsecSinceStart();
     m_tank.redrawContents(m_screen);
     while(1)
     {
@@ -63,6 +62,8 @@ bool Game::playOneLevel()
                 case ARROW_UP:
                     m_tank.getPiece()->rotateClockwise(m_tank);
                 case ARROW_DOWN:
+                    m_tank.fall(m_screen);
+                    last_fall = getMsecSinceStart();
                     break;
                 case ARROW_LEFT:
                     m_tank.getPiece()->shift(m_tank, false);
@@ -73,18 +74,10 @@ bool Game::playOneLevel()
             }
             m_tank.redrawContents(m_screen);
         }
-        if (getMsecSinceStart() - level_start_time > tic_interval * cur_tic)
+        if (getMsecSinceStart() > last_fall + tic_interval)
         {
-            if (m_tank.pieceCanFall())
-                m_tank.getPiece()->fallOne();
-            else
-            {
-                m_tank.rasterizePiece();
-                m_tank.clearFilledRows();
-                m_tank.getNextPiece(m_screen);
-            }
-            m_tank.redrawContents(m_screen);
-            cur_tic++;
+            m_tank.fall(m_screen);
+            last_fall = getMsecSinceStart();
         }
     }
     return false;  // [Replace this with the code to play a level.]

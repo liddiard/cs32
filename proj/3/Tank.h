@@ -27,6 +27,7 @@ class Tank
     const char getCharAt(int row, int col);
     int clearFilledRows();
     void removeRow(int r);
+    void fall(Screen& screen);
 
   private:
     int m_width;
