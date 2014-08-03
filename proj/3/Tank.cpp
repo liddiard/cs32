@@ -28,6 +28,11 @@ Piece * Tank::getPiece() // get the currently falling piece
 	return m_cur_piece;
 }
 
+Piece * Tank::getNextPiece() // get the piece that's up next
+{
+	return m_next_piece;
+}
+
 void Tank::setNextPiece(Screen& screen)
 {
 	m_next_piece = this->getRandomPiece(screen);

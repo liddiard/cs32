@@ -13,7 +13,8 @@ public:
 	const int getXPosition();
 	const int getYPosition();
 	void setPosition(int x, int y);
-	void display(); // print the piece to the user display at its current position
+	void display(); // print the piece to the user display at its current position. Doesn't print blank chars.
+	void displayAt(int row, int col); // print the piece to the user display at a specified position. Prints blank chars.
 	void fallOne(); // fall one row
 	char getCharAt(int row, int col);
 	virtual void shift(Tank& tank, bool right); // move left or right

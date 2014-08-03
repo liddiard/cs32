@@ -18,6 +18,7 @@ class Tank
     void display(Screen& screen);
     void redrawContents(Screen& screen);
     Piece * getPiece(); // get currently falling piece
+    Piece * getNextPiece();
     bool loadNextPiece(Screen& screen);
     void setNextPiece(Screen& screen);
     void setPiece(Piece * piece);

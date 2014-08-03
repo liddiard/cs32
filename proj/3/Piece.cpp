@@ -32,6 +32,18 @@ void Piece::display()
     }
 }
 
+void Piece::displayAt(int row, int col)
+{
+	for (int i = 0; i < PIECE_HEIGHT; i++)
+	{
+		for (int j = 0; j < PIECE_WIDTH; j++)
+		{
+			m_screen->gotoXY(row + j, col + i);
+			m_screen->printChar(m_piece[i][j]);
+		}
+	}
+}
+
 void Piece::rasterize(Tank& tank)
 {
 	const char FLATTENED_PIECE = '$';

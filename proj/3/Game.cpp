@@ -45,6 +45,22 @@ void Game::displayPrompt(std::string s)
 
 void Game::displayStatus()
 {
+    // next piece
+    m_screen.gotoXY(NEXT_PIECE_X, NEXT_PIECE_Y-1);
+    m_screen.printString("Next piece:");
+    m_tank.getNextPiece()->displayAt(NEXT_PIECE_X, NEXT_PIECE_Y);
+
+    // score
+    m_screen.gotoXY(SCORE_X, SCORE_Y);
+    m_screen.printString("Score:     ");
+
+    // rows left
+    m_screen.gotoXY(ROWS_LEFT_X, ROWS_LEFT_Y);
+    m_screen.printString("Rows left: ");
+
+    // level
+    m_screen.gotoXY(LEVEL_X, LEVEL_Y);
+    m_screen.printString("Level:     ");    
 }
 
 bool Game::playOneLevel()
@@ -81,12 +97,14 @@ bool Game::playOneLevel()
                     return false;
             }
             m_tank.redrawContents(m_screen);
+            this->displayStatus();
         }
         if (getMsecSinceStart() > last_fall + tic_interval)
         {
             if (!m_tank.fall(m_screen))
                 return false;
             m_tank.redrawContents(m_screen);
+            this->displayStatus();
             last_fall = getMsecSinceStart();
         }
     }
