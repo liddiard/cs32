@@ -17,8 +17,9 @@ Game::Game(int width, int height)
 void Game::play()
 {
     m_tank.display(m_screen);
-    Piece * ipiece = new IPiece(&m_screen);
+    Piece * ipiece = new IPiece(m_screen);
     m_tank.setPiece(ipiece);
+    m_tank.setNextPiece(m_screen);
     displayStatus();  //  score, rows left, level
     displayPrompt("Press the Enter key to begin playing Imitris!");
     waitForEnter();  // [in UserInterface.h]
@@ -59,7 +60,10 @@ bool Game::playOneLevel()
             if (m_tank.pieceCanFall())
                 m_tank.getPiece()->fallOne();
             else
+            {
                 m_tank.rasterizePiece();
+                m_tank.getNextPiece(m_screen);
+            }
             m_tank.redrawContents(m_screen);
             cur_tic++;
         }

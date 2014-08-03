@@ -1,8 +1,9 @@
+#include <algorithm>
 #include "Piece.h"
 #include "globals.h"
 #include "UserInterface.h"
 
-Piece::Piece(Screen * scr) : m_screen(scr), m_x(PIECE_INITIAL_X), m_y(PIECE_INITIAL_Y)
+Piece::Piece(Screen& scr) : m_screen(&scr), m_x(PIECE_INITIAL_X), m_y(PIECE_INITIAL_Y)
 {}
 
 const int Piece::getXPosition() { return m_x; }
@@ -10,9 +11,9 @@ const int Piece::getYPosition() { return m_y; }
 
 void Piece::setPosition(int x, int y) { m_x = x; m_y = y; }
 
-char Piece::getCharAt(int x, int y)
+char Piece::getCharAt(int row, int col)
 {
-	return m_piece[x][y];
+	return m_piece[row][col];
 }
 
 void Piece::display()
@@ -36,11 +37,132 @@ void Piece::fallOne()
 	this->setPosition(current_x, current_y + 1);
 }
 
-char Piece::m_piece[PIECE_HEIGHT][PIECE_WIDTH] = {
-	{' ', ' ', ' ', ' '},
-	{'#', '#', '#', '#'},
-	{' ', ' ', ' ', ' '},
-	{' ', ' ', ' ', ' '}
-};
+IPiece::IPiece(Screen& scr) : Piece(scr) {
+	for (int i = 0; i < PIECE_HEIGHT; i++)
+	{
+		char p[PIECE_HEIGHT][PIECE_WIDTH] = {
+			{' ', ' ', ' ', ' '},
+			{'#', '#', '#', '#'},
+			{' ', ' ', ' ', ' '},
+			{' ', ' ', ' ', ' '}
+		};
+		std::copy(p[i], p[i] + PIECE_WIDTH, m_piece[i]);
+	}
+}
 
-IPiece::IPiece(Screen * scr) : Piece(scr) {}
+LPiece::LPiece(Screen& scr) : Piece(scr) {
+	for (int i = 0; i < PIECE_HEIGHT; i++)
+	{
+		char p[PIECE_HEIGHT][PIECE_WIDTH] = {
+			{' ', ' ', ' ', ' '},
+			{'#', '#', '#', ' '},
+			{'#', ' ', ' ', ' '},
+			{' ', ' ', ' ', ' '}
+		};
+		std::copy(p[i], p[i] + PIECE_WIDTH, m_piece[i]);
+	}
+}
+
+JPiece::JPiece(Screen& scr) : Piece(scr) {
+	for (int i = 0; i < PIECE_HEIGHT; i++)
+	{
+		char p[PIECE_HEIGHT][PIECE_WIDTH] = {
+			{' ', ' ', ' ', ' '},
+			{' ', '#', '#', '#'},
+			{' ', ' ', ' ', '#'},
+			{' ', ' ', ' ', ' '}
+		};
+		std::copy(p[i], p[i] + PIECE_WIDTH, m_piece[i]);
+	}
+}
+
+TPiece::TPiece(Screen& scr) : Piece(scr) {
+	for (int i = 0; i < PIECE_HEIGHT; i++)
+	{
+		char p[PIECE_HEIGHT][PIECE_WIDTH] = {
+			{' ', '#', ' ', ' '},
+			{'#', '#', '#', ' '},
+			{' ', ' ', ' ', ' '},
+			{' ', ' ', ' ', ' '}
+		};
+		std::copy(p[i], p[i] + PIECE_WIDTH, m_piece[i]);
+	}
+}
+
+OPiece::OPiece(Screen& scr) : Piece(scr) {
+	for (int i = 0; i < PIECE_HEIGHT; i++)
+	{
+		char p[PIECE_HEIGHT][PIECE_WIDTH] = {
+			{'#', '#', ' ', ' '},
+			{'#', '#', ' ', ' '},
+			{' ', ' ', ' ', ' '},
+			{' ', ' ', ' ', ' '}
+		};
+		std::copy(p[i], p[i] + PIECE_WIDTH, m_piece[i]);
+	}
+}
+
+SPiece::SPiece(Screen& scr) : Piece(scr) {
+	for (int i = 0; i < PIECE_HEIGHT; i++)
+	{
+		char p[PIECE_HEIGHT][PIECE_WIDTH] = {
+			{' ', ' ', ' ', ' '},
+			{' ', '#', '#', ' '},
+			{'#', '#', ' ', ' '},
+			{' ', ' ', ' ', ' '}
+		};
+		std::copy(p[i], p[i] + PIECE_WIDTH, m_piece[i]);
+	}
+}
+
+ZPiece::ZPiece(Screen& scr) : Piece(scr) {
+	for (int i = 0; i < PIECE_HEIGHT; i++)
+	{
+		char p[PIECE_HEIGHT][PIECE_WIDTH] = {
+			{' ', ' ', ' ', ' '},
+			{'#', '#', ' ', ' '},
+			{' ', '#', '#', ' '},
+			{' ', ' ', ' ', ' '}
+		};
+		std::copy(p[i], p[i] + PIECE_WIDTH, m_piece[i]);
+	}
+}
+
+VaporPiece::VaporPiece(Screen& scr) : Piece(scr) {
+	for (int i = 0; i < PIECE_HEIGHT; i++)
+	{
+		char p[PIECE_HEIGHT][PIECE_WIDTH] = {
+			{' ', '#', '#', ' '},
+			{' ', ' ', ' ', ' '},
+			{' ', ' ', ' ', ' '},
+			{' ', ' ', ' ', ' '}
+		};
+		std::copy(p[i], p[i] + PIECE_WIDTH, m_piece[i]);
+	}
+}
+
+FoamPiece::FoamPiece(Screen& scr) : Piece(scr) {
+	for (int i = 0; i < PIECE_HEIGHT; i++)
+	{
+		char p[PIECE_HEIGHT][PIECE_WIDTH] = {
+			{' ', ' ', ' ', ' '},
+			{' ', '#', ' ', ' '},
+			{' ', ' ', ' ', ' '},
+			{' ', ' ', ' ', ' '}
+		};
+		std::copy(p[i], p[i] + PIECE_WIDTH, m_piece[i]);
+	}
+}
+
+CrazyPiece::CrazyPiece(Screen& scr) : Piece(scr) {
+	for (int i = 0; i < PIECE_HEIGHT; i++)
+	{
+		char p[PIECE_HEIGHT][PIECE_WIDTH] = {
+			{'#', ' ', ' ', '#'},
+			{' ', '#', '#', ' '},
+			{' ', ' ', ' ', ' '},
+			{' ', ' ', ' ', ' '}
+		};
+		std::copy(p[i], p[i] + PIECE_WIDTH, m_piece[i]);
+	}
+}

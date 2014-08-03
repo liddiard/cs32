@@ -14,7 +14,10 @@ class Tank
     void display(Screen& screen);
     void redrawContents(Screen& screen);
     Piece * getPiece();
+    Piece * getNextPiece(Screen& screen);
+    void setNextPiece(Screen& screen);
     void setPiece(Piece * piece);
+    Piece * getRandomPiece(Screen& screen);
     void rasterizePiece();
     bool pieceCanFall();
 
@@ -26,6 +29,7 @@ class Tank
     std::vector<std::vector<char> > m_raster; // rasterized representation of characters inside the tank 
                                              // which are static between fall tics
     Piece * m_cur_piece; // currently falling piece
+    Piece * m_next_piece;
 };
 
 #endif // TANK_INCLUDED
