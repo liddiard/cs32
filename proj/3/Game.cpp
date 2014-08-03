@@ -36,7 +36,7 @@ void Game::play()
     waitForEnter();
 }
 
-void Game::displayPrompt(std::string s)     
+void Game::displayPrompt(std::string s)
 {
     m_screen.gotoXY(PROMPT_X, PROMPT_Y);
     m_screen.printStringClearLine(s);   // overwrites previous text
@@ -61,6 +61,7 @@ bool Game::playOneLevel()
             {
                 case ARROW_UP:
                     m_tank.getPiece()->rotateClockwise(m_tank);
+                    break;
                 case ARROW_DOWN:
                     if (!m_tank.fall(m_screen))
                         return false;
