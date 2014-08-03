@@ -42,12 +42,32 @@ void Piece::shift(Tank& tank, bool right)
 {
 	if (right)
 	{
-		if (m_x + PIECE_WIDTH + 1 <= tank.getXOffset() + tank.getWidth())
+		// find the right bound of the piece in its current orientation
+		int right_bound = 0;
+		for (int i = 0; i < PIECE_HEIGHT; i++)
+		{
+			for (int j = 0; j < PIECE_WIDTH; j++)
+			{
+				if (m_piece[i][j] != ' ' && j > right_bound)
+					right_bound = j;
+			}
+		}
+		if (m_x + right_bound + 1 < tank.getXOffset() + tank.getWidth())
 			m_x++;
 	} 
 	else // (left)
 	{
-		if (m_x - 1 >= tank.getXOffset())
+		// find the left bound of the piece in its current orientation
+		int left_bound = PIECE_WIDTH;
+		for (int i = 0; i < PIECE_HEIGHT; i++)
+		{
+			for (int j = 0; j < PIECE_WIDTH; j++)
+			{
+				if (m_piece[i][j] != ' ' && j < left_bound)
+					left_bound = j;
+			}
+		}
+		if (m_x + left_bound - 1 >= tank.getXOffset())
 			m_x--;
 	}
 }
@@ -59,7 +79,7 @@ void Piece::rotateClockwise()
 	{
 		for (int j = 0; j < PIECE_WIDTH; j++)
 		{
-			tmp[j][i] = m_piece[i][j];
+			tmp[j][i] = m_piece[PIECE_WIDTH-i-1][j];
 		}
 	}
 	for (int i = 0; i < PIECE_HEIGHT; i++)
@@ -72,12 +92,32 @@ void CrazyPiece::shift(Tank& tank, bool right)
 	// '!' on line below reverses directions
 	if (!right)
 	{
-		if (m_x + PIECE_WIDTH + 1 <= tank.getXOffset() + tank.getWidth())
+		// find the right bound of the piece in its current orientation
+		int right_bound = 0;
+		for (int i = 0; i < PIECE_HEIGHT; i++)
+		{
+			for (int j = 0; j < PIECE_WIDTH; j++)
+			{
+				if (m_piece[i][j] != ' ' && j > right_bound)
+					right_bound = j;
+			}
+		}
+		if (m_x + right_bound + 1 < tank.getXOffset() + tank.getWidth())
 			m_x++;
 	} 
 	else // (left)
 	{
-		if (m_x - 1 >= tank.getXOffset())
+		// find the left bound of the piece in its current orientation
+		int left_bound = PIECE_WIDTH;
+		for (int i = 0; i < PIECE_HEIGHT; i++)
+		{
+			for (int j = 0; j < PIECE_WIDTH; j++)
+			{
+				if (m_piece[i][j] != ' ' && j < left_bound)
+					left_bound = j;
+			}
+		}
+		if (m_x + left_bound - 1 >= tank.getXOffset())
 			m_x--;
 	}
 }

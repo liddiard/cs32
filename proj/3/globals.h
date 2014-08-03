@@ -19,6 +19,8 @@ const int ROWS_LEFT_Y = 9;
 const int LEVEL_X = 16;
 const int LEVEL_Y = 10;
 
+// invariant: PIECE_WIDTH == PIECE HEIGHT
+// see: piece rotation
 const int PIECE_WIDTH = 4;
 const int PIECE_HEIGHT = 4;
 
