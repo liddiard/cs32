@@ -77,12 +77,14 @@ class VaporPiece : public Piece
 {
 public:
 	VaporPiece(Screen& scr);
+	virtual void rotateClockwise();
 };
 
 class FoamPiece : public Piece
 {
 public:
 	FoamPiece(Screen& scr);
+	virtual void rotateClockwise();
 };
 
 class CrazyPiece : public Piece

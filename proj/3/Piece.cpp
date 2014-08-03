@@ -82,6 +82,10 @@ void CrazyPiece::shift(Tank& tank, bool right)
 	}
 }
 
+void FoamPiece::rotateClockwise() {} // FoamPiece doesn't rotate
+
+void VaporPiece::rotateClockwise() {} // VaporPiece doesn't rotate
+
 IPiece::IPiece(Screen& scr) : Piece(scr) {
 	for (int i = 0; i < PIECE_HEIGHT; i++)
 	{
