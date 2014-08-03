@@ -22,13 +22,11 @@ public:
 	int leftBound();
 	int topBound();
 	int bottomBound();
-	// void fallAll();
-	// void rotateClockwise();
-	// void rotateCounterclockwise();
+	virtual void rasterize(Tank& tank);
 
 protected:
 	char m_piece[PIECE_WIDTH][PIECE_HEIGHT];
-	int m_x; // offset of piece's top left corner 
+	int m_x; // offset of piece's top left corner
 	int m_y; // from the top left corner of the game
 
 private:

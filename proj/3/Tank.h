@@ -17,14 +17,14 @@ class Tank
     const int getYOffset();
     void display(Screen& screen);
     void redrawContents(Screen& screen);
-    Piece * getPiece();
+    Piece * getPiece(); // get currently falling piece
     bool loadNextPiece(Screen& screen);
     void setNextPiece(Screen& screen);
     void setPiece(Piece * piece);
     Piece * getRandomPiece(Screen& screen);
-    void rasterizePiece();
     bool pieceCanFall();
     const char getCharAt(int row, int col);
+    void setCharAt(int row, int col, char ch);
     int clearFilledRows();
     void removeRow(int r);
     bool fall(Screen& screen);
@@ -36,7 +36,7 @@ class Tank
     int m_height;
     int m_x_offset;
     int m_y_offset;
-    std::vector<std::vector<char> > m_raster; // rasterized representation of characters inside the tank 
+    std::vector<std::vector<char> > m_raster; // rasterized representation of characters inside the tank
                                              // which are static between fall tics
     Piece * m_cur_piece; // currently falling piece
     Piece * m_next_piece;

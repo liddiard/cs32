@@ -31,6 +31,22 @@ void Piece::display()
     }
 }
 
+void Piece::rasterize(Tank& tank)
+{
+	const char FLATTENED_PIECE = '$';
+	// for each character in each row, move the cursor there and set the character
+	for (int i = 0; i < PIECE_HEIGHT; i++) // for each row of the piece
+	{
+		for (int j = 0; j < PIECE_WIDTH; j++) // for each column of the piece row
+		{
+			if (tank.getPiece()->getCharAt(i, j) != ' ') // don't set the character if it's blank (a space char)
+			{
+				tank.setCharAt(tank.getPiece()->getYPosition()+i, tank.getPiece()->getXPosition()+j, FLATTENED_PIECE);
+			}
+		}
+	}
+}
+
 void Piece::fallOne()
 {
 	int current_x = this->getXPosition();
@@ -55,7 +71,7 @@ void Piece::shift(Tank& tank, bool right)
 		int right_bound = this->rightBound();
 		if (this->inVerticalBounds(tank, m_x + right_bound + 1))
 			m_x++;
-	} 
+	}
 	else // (left)
 	{
 		// find the left bound of the piece in its current orientation
@@ -67,9 +83,9 @@ void Piece::shift(Tank& tank, bool right)
 
 void Piece::rotateClockwise(Tank& tank)
 {
-	// if piece is rotated 90 degrees, top and bottom become the sides, so we check 
+	// if piece is rotated 90 degrees, top and bottom become the sides, so we check
 	// those bounds against the bounds of the tank and return if they'd fall outside
-	if (!this->inVerticalBounds(tank, this->topBound() + m_x) || 
+	if (!this->inVerticalBounds(tank, this->topBound() + m_x) ||
 		!this->inVerticalBounds(tank, this->bottomBound() + m_x))
 		return;
 	// check the right side against the bottom of the tank
@@ -154,7 +170,7 @@ void CrazyPiece::shift(Tank& tank, bool right)
 		int right_bound = this->rightBound();
 		if (m_x + right_bound + 1 < tank.getXOffset() + tank.getWidth())
 			m_x++;
-	} 
+	}
 	else // (left)
 	{
 		int left_bound = this->leftBound();

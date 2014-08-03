@@ -6,7 +6,7 @@
 #include "globals.h"
 #include "randPieceType.h"
 
-Tank::Tank(int width, int height) : m_width(width), m_height(height), 
+Tank::Tank(int width, int height) : m_width(width), m_height(height),
 									m_x_offset(TANK_X), m_y_offset(TANK_Y)
 {
 	for (int i = 0; i < m_height; i++)
@@ -38,25 +38,14 @@ void Tank::setPiece(Piece * piece)
 	m_cur_piece = piece;
 }
 
-void Tank::rasterizePiece()
-{
-	const char FLATTENED_PIECE = '$';
-    // for each character in each row, move the cursor there and set the character
-    for (int i = 0; i < PIECE_HEIGHT; i++) // for each row of the piece
-    {
-    	for (int j = 0; j < PIECE_WIDTH; j++) // for each column of the piece row
-    	{
-    		if (m_cur_piece->getCharAt(i, j) != ' ') // don't set the character if it's blank (a space char)
-    		{
-    			m_raster[m_cur_piece->getYPosition()+i][m_cur_piece->getXPosition()+j] = FLATTENED_PIECE;
-    		}
-    	}
-    }
-}
-
 const char Tank::getCharAt(int row, int col)
 {
 	return m_raster[row][col];
+}
+
+void Tank::setCharAt(int row, int col, char ch)
+{
+	m_raster[row][col] = ch;
 }
 
 bool Tank::loadNextPiece(Screen& screen) // returns true if piece was added successfully; false if there's no room
@@ -89,7 +78,7 @@ Piece * Tank::getRandomPiece(Screen& screen)
 			return new TPiece(screen);
 		case PIECE_O:
 			return new OPiece(screen);
-		case PIECE_S: 
+		case PIECE_S:
 			return new SPiece(screen);
 		case PIECE_Z:
 			return new ZPiece(screen);
@@ -110,7 +99,7 @@ bool Tank::pieceCanFall() // does the piece have room below it to continue falli
     	{
     		if (m_cur_piece->getCharAt(i, j) != ' ') // don't check below if there's no part of the piece here
     		{
-    			if (m_cur_piece->getYPosition() + i + 1 >= m_height) // piece is at the bottom of the tank 
+    			if (m_cur_piece->getYPosition() + i + 1 >= m_height) // piece is at the bottom of the tank
     				return false;
     			else if (m_raster[m_cur_piece->getYPosition() + i + 1][m_cur_piece->getXPosition() + j] != ' ') // piece directly above an obstruction
     				return false;
@@ -122,7 +111,7 @@ bool Tank::pieceCanFall() // does the piece have room below it to continue falli
 
 bool Tank::changeToNewPiece(Screen& screen) // returns true if piece successfully added; false if no room in tank
 {
-    this->rasterizePiece();
+    m_cur_piece->rasterize(*this);
     this->clearFilledRows();
     if (!this->loadNextPiece(screen))
     	return false;
@@ -132,7 +121,7 @@ bool Tank::changeToNewPiece(Screen& screen) // returns true if piece successfull
 bool Tank::fall(Screen& screen)
 {
     if (this->pieceCanFall())
-    {	
+    {
         this->getPiece()->fallOne();
         return true;
     }
@@ -190,12 +179,12 @@ void Tank::display(Screen& screen)
 	// right wall of tank
 	for (int i = m_y_offset; i < (m_y_offset + m_height); i++)
 	{
-		screen.gotoXY((m_x_offset + m_width + 1), i); // "+ 1" gives the tank a *capacity* of speficied width, 
+		screen.gotoXY((m_x_offset + m_width + 1), i); // "+ 1" gives the tank a *capacity* of speficied width,
 													// as opposed to putting a wall at the specified width
 		screen.printChar(TANK_CHAR);
 	}
 	// bottom of tank
-	for (int i = m_x_offset; i < (m_x_offset + m_width + 2); i++) // "+ 2 " to width accounts for combined thickness 
+	for (int i = m_x_offset; i < (m_x_offset + m_width + 2); i++) // "+ 2 " to width accounts for combined thickness
 															  // of the two walls (one column each)
 	{
 		screen.gotoXY(i, (m_y_offset + m_height));
