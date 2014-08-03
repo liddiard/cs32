@@ -66,6 +66,22 @@ void Piece::rotateClockwise()
 		std::copy(tmp[i], tmp[i] + PIECE_WIDTH, m_piece[i]);
 }
 
+void CrazyPiece::shift(Tank& tank, bool right)
+{
+	// CrazyPiece shifts the OPPOSITE direction of the key user presses
+	// '!' on line below reverses directions
+	if (!right)
+	{
+		if (m_x + PIECE_WIDTH + 1 <= tank.getXOffset() + tank.getWidth())
+			m_x++;
+	} 
+	else // (left)
+	{
+		if (m_x - 1 >= tank.getXOffset())
+			m_x--;
+	}
+}
+
 IPiece::IPiece(Screen& scr) : Piece(scr) {
 	for (int i = 0; i < PIECE_HEIGHT; i++)
 	{
