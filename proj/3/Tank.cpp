@@ -9,7 +9,8 @@
 #include "randPieceType.h"
 
 Tank::Tank(int width, int height) : m_width(width), m_height(height),
-									m_x_offset(TANK_X), m_y_offset(TANK_Y)
+									m_x_offset(TANK_X), m_y_offset(TANK_Y),
+                                    m_cur_piece(nullptr), m_next_piece(nullptr)
 {
 	for (int i = 0; i < m_height; i++)
 	{
