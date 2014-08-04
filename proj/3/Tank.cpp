@@ -63,11 +63,12 @@ bool Tank::loadNextPiece(Game& game) // returns true if piece was added successf
 	m_next_piece = this->getRandomPiece(*(game.getScreen()));
 	for (int i = 0; i < PIECE_HEIGHT; i++)
 	{
-		for (int j = 0; j < PIECE_WIDTH; j++)
-		{
-			if (m_raster[m_cur_piece->getYPosition()+i][m_cur_piece->getXPosition()+j] != ' ')
-				return false; // piece overlaps; game over
-		}
+        if (m_cur_piece->overlapsFragment(*this, m_cur_piece->getYPosition(), m_cur_piece->getXPosition()))
+        {
+            m_cur_piece->display();
+            this->redrawContents(*(game.getScreen()));
+            return false; // piece overlaps; game over
+        }
 	}
 	return true;
 }
