@@ -9,14 +9,25 @@
 #include "Piece.h"
 
 Game::Game(int width, int height)
- : m_screen(SCREEN_WIDTH, SCREEN_HEIGHT), m_level(6), // TODO: return to default 1 for prod
-   m_tank(width, height), m_score(0)
+ : m_screen(SCREEN_WIDTH, SCREEN_HEIGHT), m_level(1), 
+   m_tank(width, height), m_score(0), m_rows_left(ROWS_PER_LEVEL_MULTIPLIER)
 {
 }
 
 Screen * Game::getScreen() { return &m_screen; }
 
 void Game::addToScore(int n) { m_score += n; }
+
+void Game::setRowsLeft(int n) { m_rows_left = n; }
+
+const int Game::getRowsLeft() { return m_rows_left; }
+
+int Game::getLevel() { return m_level; }
+
+void Game::incrementLevel()
+{
+    m_level++;
+}
 
 void Game::play()
 {
@@ -34,7 +45,6 @@ void Game::play()
             break;
         displayPrompt("Good job!  Press the Enter key to start next level!");
         waitForEnter();
-        m_level++;
     }
     displayPrompt("Game Over!  Press the Enter key to exit!");
     waitForEnter();
@@ -72,6 +82,7 @@ void Game::displayStatus()
     // rows left
     m_screen.gotoXY(ROWS_LEFT_X, ROWS_LEFT_Y);
     m_screen.printStringClearLine("Rows left: ");
+    m_screen.printString(intToPaddedStr(m_rows_left, STATUS_NUM_WIDTH));
 
     // level
     m_screen.gotoXY(LEVEL_X, LEVEL_Y);

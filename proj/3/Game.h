@@ -17,6 +17,10 @@ class Game
     void displayStatus();
     Screen * getScreen();
     void addToScore(int n);
+    const int getRowsLeft();
+    void setRowsLeft(int n);
+    int getLevel();
+    void incrementLevel();
 
   private:
     Tank    m_tank;

@@ -35,4 +35,6 @@ const int NEXT_PIECE_Y = 4;
 
 const int STATUS_NUM_WIDTH = 7;
 
+const int ROWS_PER_LEVEL_MULTIPLIER = 5;
+
 #endif
