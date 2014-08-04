@@ -109,6 +109,7 @@ bool Tank::pieceCanFall(Piece * piece) // does the piece have room below it to c
 bool Tank::changeToNewPiece(Game& game) // returns true if piece successfully added; false if no room in tank
 {
     m_cur_piece->rasterize(*this);
+    this->redrawContents(*(game.getScreen()));
     this->clearFilledRows(game);
     if (!this->loadNextPiece(game))
     	return false;
@@ -153,12 +154,7 @@ int Tank::clearFilledRows(Game& game)
 	if (filled > 0) game.addToScore(std::pow(2, (filled-1))*100);
     int rows_remaining = game.getRowsLeft();
     rows_remaining -= filled;
-    if (rows_remaining < 1) 
-    {
-        game.incrementLevel();
-        game.setRowsLeft(ROWS_PER_LEVEL_MULTIPLIER*game.getLevel());
-    }
-    else game.setRowsLeft(rows_remaining);
+    game.setRowsLeft(rows_remaining);
 	return filled;
 }
 
@@ -178,7 +174,7 @@ void Tank::removeContents()
     for (int i = 0; i < m_height; i++)
     {
         for (int j = 0; j < m_width; j++)
-        m_raster[i][j] == ' ';
+            m_raster[i][j] = ' ';
     }
 }
 

@@ -9,7 +9,7 @@
 #include "Piece.h"
 
 Game::Game(int width, int height)
- : m_screen(SCREEN_WIDTH, SCREEN_HEIGHT), m_level(1), 
+ : m_screen(SCREEN_WIDTH, SCREEN_HEIGHT), m_level(0), 
    m_tank(width, height), m_score(0), m_rows_left(ROWS_PER_LEVEL_MULTIPLIER)
 {
 }
@@ -90,6 +90,10 @@ void Game::displayStatus()
 
 bool Game::playOneLevel()
 {
+    this->incrementLevel();
+    this->setRowsLeft(ROWS_PER_LEVEL_MULTIPLIER*m_level);
+    m_tank.removeContents();
+
     double tic_interval = std::max(1000-(100*(m_level-1)), 100); // milliseconds between successive falls
     double last_fall = getMsecSinceStart();
 
@@ -110,7 +114,8 @@ bool Game::playOneLevel()
                     break;
                 case ARROW_DOWN:
                     if (!m_tank.fall(*this))
-                        return false;
+                        return false; 
+                    if (m_rows_left < 1) return true;
                     last_fall = getMsecSinceStart();
                     break;
                 case ARROW_LEFT:
@@ -122,6 +127,7 @@ bool Game::playOneLevel()
                 case ' ':
                     if (!m_tank.fallAll(*this))
                         return false;
+                    if (m_rows_left < 1) return true;
                     break;
                 case 'q': case 'Q':
                     return false;
@@ -133,6 +139,7 @@ bool Game::playOneLevel()
         {
             if (!m_tank.fall(*this))
                 return false;
+            if (m_rows_left < 1) return true;
             m_tank.redrawContents(m_screen);
             this->displayStatus();
             last_fall = getMsecSinceStart();
