@@ -173,6 +173,15 @@ void Tank::removeRow(int r)
 	}
 }
 
+void Tank::removeContents()
+{
+    for (int i = 0; i < m_height; i++)
+    {
+        for (int j = 0; j < m_width; j++)
+        m_raster[i][j] == ' ';
+    }
+}
+
 void Tank::display(Screen& screen)
 {
 	const char TANK_CHAR = '@';

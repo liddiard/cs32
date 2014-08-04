@@ -28,12 +28,13 @@ class Tank
     const char getCharAt(int row, int col);
     void setCharAt(int row, int col, char ch);
     int clearFilledRows(Game& game);
-    void removeRow(int r);
+    void removeContents();
     bool fall(Game& game);
     bool fallAll(Game& game);
     bool changeToNewPiece(Game& game);
 
   private:
+    void removeRow(int r);
     int m_width;
     int m_height;
     int m_x_offset;
