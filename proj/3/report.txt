@@ -36,6 +36,13 @@ NOTE: This document is formatted in markdown but has the extension .txt (as oppo
 - `bool inVerticalBounds(Tank& tank, int pos)`: Checks if the column provided is within the provided tank.
 - `bool inHorizontalBounds(Tank& tank, int pos)`: Checks if the row provided is within the provided tank.
 
+### Methods overridden in child class pieces
+- `virtual void CrazyPiece::shift()`: Shift the piece the opposite direction as the directional key the user presses.
+- `virtual void FoamPiece::rotateClockwise(Tank& tank)`: Does nothing because FoamPiece doesn’t rotate.
+- `virtual void VaporPiece::rotateClockwise(Tank& tank)`: Does nothing because VaporPiece doesn’t rotate.
+- `virtual void FoamPiece::rasterize(Tank& tank)`: Calls the recursive function fillWithFoam to fill surrounding areas with foam.
+- `virtual void VaporPiece::rasterize(Tank& tank)`: Set characters within y +/- 2 distance of a component of the piece to empty space.
+
 ## Tank
 `Tank(int width, int height)`: Construct a tank with the specified width and height.
 `const int getWidth()`: Get the width of the tank.
@@ -60,5 +67,9 @@ NOTE: This document is formatted in markdown but has the extension .txt (as oppo
 `bool changeToNewPiece(Game& game)`: Rasterize the current piece and try adding a new one. If the new piece can be added, returns true. Otherwise returns false.
 
 # Unimplemented functionality and known issues
+- FoamPiece recursive algorithm does not fill space precisely as described in the spec. 
 
 # Design decisions and assumptions
+- When the user completes a level and the “Good job!” message is displayed, the most recently added piece is displayed as hashes (#) rather than dollar signs ($).
+- When a new level starts, the next piece from the previous level becomes the current piece for the current level; a new random piece is not selected to start the level off.
+- When the game is over, the piece that causes the game to end is displayed in hashes (#).
