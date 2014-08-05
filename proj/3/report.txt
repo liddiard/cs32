@@ -1,0 +1,64 @@
+NOTE: This document is formatted in markdown but has the extension .txt (as opposed to .md) to comply with spec.
+
+# Description of public member functions
+
+## Game
+- `Game(int width, int height)`: Construct a game with specified width and height.
+- `void play()`: Play a game.
+- `bool playOneLevel()`: Play a single level of a game. Returns true if game should continue to the next level, false if game over.
+- `void displayPrompt(std::string s)`: Prompt the user with an action to take. Takes a string to display on the screen.
+- `void displayStatus()`: Display current level, score, rows remaining, and next piece.
+- `Screen * getScreen()`: Returns a pointer to the screen member variable.
+- `void addToScore(int n)`: Add the supplied integer to the game score.
+- `const int getRowsLeft()`: Getter for m_rows_left private member var.
+- `const int setRowsLeft()`: Setter for m_rows_left private member var.
+- `int getLevel()`: Getter for m_level private member var.
+- `void incrementLevel()`: Increment the current level by one.
+
+
+## Piece
+- `Piece(Screen& scr)`: Construct a new piece.
+- `const int getXPosition()`: Get x-coordinate of the piece in the tank.
+- `const int getYPosition()`: Get y-coordinate of the piece in the tank.
+- `void setPosition(int x, int y)`: Set the piece’s position in the tank to the specified params.
+- `void display()` Print the piece to the user display at its current position. Doesn't print blank chars. Used for displaying pieces in the tank.
+- `void displayAt(int row, int col)`: Print the piece to the user display at a specified position. Prints blank chars. Used for displaying the “Next piece:”.
+- `void fallOne()` Increase the y-axis position by one. Causes the piece to fall one row.
+- `char getCharAt(int row, int col)`: Get the character that comprises the piece at the specified coordinate.
+- `virtual void shift(Tank& tank, bool right)`: Move the piece left or right.
+- `virtual void rotateClockwise(Tank& tank)`: Rotate the piece clockwise.
+- `int rightBound()`: Returns the column of the piece’s rightmost character.
+- `int leftBound()`: Returns the column of the piece’s leftmost character.
+- `int topBound()`: Returns the column of the piece’s topmost character.
+- `int bottomBound()`: Returns the column of the piece’s bottommost character.
+- `bool overlapsFragment(Tank& tank, int row, int col)`: Checks if the piece at would overlap with something already in the tank if positioned at the coordinates supplied.
+- `virtual void rasterize(Tank& tank)`: Rasterizes the piece in its current position to the tank. (Makes it “part of the tank”.)
+- `bool inVerticalBounds(Tank& tank, int pos)`: Checks if the column provided is within the provided tank.
+- `bool inHorizontalBounds(Tank& tank, int pos)`: Checks if the row provided is within the provided tank.
+
+## Tank
+`Tank(int width, int height)`: Construct a tank with the specified width and height.
+`const int getWidth()`: Get the width of the tank.
+`const int getHeight()`: Get the height of the tank.
+`const int getXOffset()`: Get the offset of the tank on the x-axis from the top-left of the window.
+`const int getYOffset()`: Get the offset of the tank on the y-axis from the top-left of the window.
+`void display(Screen& screen)`: Draw the tank.
+`void redrawContents(Screen& screen)`: Refresh the contents of the tank on screen to reflect its current internal contents.
+`Piece * getPiece()`: Get a pointer to the currently falling piece.
+`Piece * getNextPiece()`: Get a pointer to the next piece.
+`bool loadNextPiece(Game& game)`: Delete the current piece, set the next piece to the current piece, get a new random piece for the next piece.
+`void setNextPiece(Screen& screen)`: Set the next piece to a random piece.
+`void setPiece(Piece * piece)`: Set the current piece to the piece provided.
+`Piece * getRandomPiece(Screen& screen)`: Get a random piece.
+`bool pieceCanFall(Piece * piece)`: Checks if a piece has room below it to fall one row.
+`const char getCharAt(int row, int col)`: Get the character at the supplied row and column in the tank.
+`void setCharAt(int row, int col, char ch)`: Set the char at the provided row and column to the provided character.
+`int clearFilledRows(Game& game)`: Clear any rows which have been completely filled. Returns the number of rows cleared.
+`void removeContents()`: Reset the contents of the tank to empty.
+`bool fall(Game& game)`: If the currently falling piece can fall, make it fall one row and return true. Otherwise, get a new piece. If the new piece can fit in the tank, return true. If it can’t, return false.
+`bool fallAll(Game& game)`: Same as the previous function, except it makes the piece fall as far as it can instead of just one row.
+`bool changeToNewPiece(Game& game)`: Rasterize the current piece and try adding a new one. If the new piece can be added, returns true. Otherwise returns false.
+
+# Unimplemented functionality and known issues
+
+# Design decisions and assumptions
