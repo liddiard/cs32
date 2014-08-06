@@ -1,0 +1,26 @@
+2.a. O(n^3) time complexity because there is a triple-nested for loop, and at each level of the loop, an operation of time complexity n, relative to that level, occurs. Because the number of operations in each for loop is dependent on the size of the input, time complexity is n^3 + n^2 + n, or O(n^3).
+
+2.b. Still O(n^3). Changing the loop limit from N to i only alters the coefficient of the middle j loop from 1 to 1/2, so the time complexity is n^3 + (1/2)n^2 + n. Since Big-O notation ignores coefficients, though, the worst case performance is expressed as O(n^3).
+
+3.a.
+Initialize a counter for the number of inversions.
+For each element i in the array:
+    For each element j following the element:
+        Check if the value of element j is less than i.
+        If so, add one to the counter.
+
+3.b.
+Initialize a counter for the number of inversions.
+Split the array into pairs of elements.
+For each pair of elements:
+    If the first element is larger than the second, swap them and add one to the counter.
+Merge each pair of pairs together. 
+    In the merge process, for each element from the second pair "inserted" before the last element of the first pair, add one to the counter.
+Repeat process above until you're left with one full array (which also happens to be sorted).
+
+4.
+Create a map of doubles to ints where doubles will be the log(n) unique values in the array and the ints will be the number of times they occur in the input.
+For each item in the array:
+    If it's not already in the map, add a key with the double and set the value to 1.
+    Else increment the existing value.
+Merge sort the keys of the map.
