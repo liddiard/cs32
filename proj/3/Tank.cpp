@@ -151,7 +151,7 @@ int Tank::clearFilledRows(Game& game)
 			}
 		}
 	}
-	if (filled > 0) game.addToScore(std::pow(2, (filled-1))*100);
+	if (filled > 0) game.addToScore(std::pow((double)2, (double)(filled-1))*100);
     int rows_remaining = game.getRowsLeft();
     rows_remaining -= filled;
     game.setRowsLeft(rows_remaining);
