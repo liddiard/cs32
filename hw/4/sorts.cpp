@@ -13,7 +13,7 @@ using namespace std;
 //  you're sorting so many items that insertion_sort would take more time
 //  than you're willing to wait.
 
-const bool TEST_INSERTION_SORT = false;
+const bool TEST_INSERTION_SORT = true;
 
 //========================================================================
 
@@ -183,11 +183,11 @@ void insertion_sort(vector<Sensor>& s, bool comp(const Sensor&, const Sensor&))
     // final ordering.
     // if (s.size() == 2  &&  comp(s[1], s[0]))
     //     swap(s[0], s[1]);
-    for (std::vector<int>::size_type i = 0; i != s.size(); i++)
+    for (std::vector<int>::size_type i = 1; i != s.size(); i++)
     {
         Sensor cur = s[i];
         int pos = i;
-        while (pos > 0 && comp(s[pos-1], cur)) // we're not at the beginning of the array and the previous position is greater than the current one
+        while (pos > 0 && comp(cur, s[pos-1])) // we're not at the beginning of the array and the previous position is greater than the current one
         {
             s[i] = s[i-1];
             pos--;
