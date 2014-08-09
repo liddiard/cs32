@@ -1,24 +1,40 @@
+#include <fstream>
 #include <iostream>
 #include <string>
+#include <sstream>
 #include "hash.h"
-
 using namespace std;
+
+const float MAX_LOAD_FACTOR = 0.5;
 
 void spellCheck(istream& inf, istream& wordlistfile, ostream& outf)
 {
+	// variable initialization
+	stringstream ss;
+	string line;
+	string word;
+	int wordlist_size;
 
+	// create a hashtable of appropriate size
+	getline(wordlistfile, line);
+	ss << line;
+	ss >> wordlist_size;
+	HashTable * wordlist = new HashTable(wordlist_size / MAX_LOAD_FACTOR);
+
+	// load words into the hashtable
+	while (getline(wordlistfile, line)) 
+	{
+		ss << line;
+		ss >> word;
+		wordlist->insert(word);
+	}
+
+	delete wordlist;
 }
 
 int main()
 {
-	HashTable* words = new HashTable(100);
-	cout << "1" << endl;
-	words->insert("apple");
-	cout << "2" << endl;
-	words->insert("monkey");
-	cout << "3" << endl;
-	if (words->find("apple"))
-		cout << "Found 'apple'";
-	if (words->find("happy"))
-		cout << "Found 'happy'";
+	ifstream wordlist("wordlist.txt");
+	ifstream input("test_input.txt");
+	spellCheck(input, wordlist, cout);
 }
