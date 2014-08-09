@@ -4,9 +4,51 @@
 #include <sstream>
 #include <algorithm>
 #include "hash.h"
+#include "utilities.cpp"
 using namespace std;
 
+const int ALPHABET_LENGTH = 26;
 const float MAX_LOAD_FACTOR = 0.5;
+
+char ALPHABET[ALPHABET_LENGTH];
+for (int i = 0; i < ALPHABET_LENGTH; i++)
+{
+	ALPHABET[i] = (char)(65 + i);
+}
+
+
+void swapAdjacent(string misspelling, HashTable * wordlist, vector<string> * suggestions)
+{
+	for (int i = 0; i < misspelling.size() - 1; i++)
+	{
+		swapChars(misspelling, i);
+		if (wordlist->find(misspelling))
+			suggestions->push_back(misspelling);
+		swapChars(misspelling, i); // swap them back to original positions
+	}
+}
+
+void insertChar(string misspelling, HashTable * wordlist, vector<string> * suggestions)
+{
+	for (int i = 0; i < misspelling.size(); i++)
+	{
+		for (int j = 0; j < ALPHABET_LENGTH; j++)
+		{
+			misspelling.insert(misspelling.begin()+i, ALPHABET[j]);
+			cout << "attempting: " << misspelling << endl;
+			if (wordlist->find(misspelling))
+				suggestions->push_back(misspelling);
+			misspelling.erase(i);
+		}
+	}
+}
+
+vector<string> * suggest(string misspelling, HashTable * wordlist)
+{
+	vector<string> * suggestions;
+	swapAdjacent(misspelling, wordlist, suggestions);
+	return suggestions;
+}
 
 void spellCheck(istream& inf, istream& wordlistfile, ostream& outf)
 {
@@ -15,7 +57,7 @@ void spellCheck(istream& inf, istream& wordlistfile, ostream& outf)
 	string line;
 	string word;
 	int wordlist_size;
-	vector<string> paragraph;
+	vector<string> * suggestions;
 
 	// create a hashtable of appropriate size
 	getline(wordlistfile, line);
@@ -37,9 +79,12 @@ void spellCheck(istream& inf, istream& wordlistfile, ostream& outf)
 		ss << line;
 		while (ss >> word) // while we have words in the line
 		{
-			transform(word.begin(), word.end(), word.begin(), ::tolower);
+			transform(word.begin(), word.end(), word.begin(), ::tolower); // convert to lower case
 			if (!wordlist->find(word))
-				cout << "didn't find " << word << endl;
+			{
+				suggestions = suggest(word, wordlist);
+				// print suggestions
+			}
 		}
 	}
 
