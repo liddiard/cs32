@@ -17,9 +17,9 @@ private:
 	char m_alphabet[ALPHABET_LENGTH];
 	int m_wordlist_size;
 	HashTable * m_wordlist;
-	std::vector<std::string> * m_suggestions;
+	std::vector<std::string> m_suggestions;
 
-	std::vector<std::string> * suggest(std::string misspelling);
+	void suggest(std::string misspelling); // update m_suggestions with suggestions for a misspelled word
 	void swapAdjacent(std::string misspelling);
 	void insertChar(std::string misspelling);
 };

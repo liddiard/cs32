@@ -9,7 +9,7 @@ SpellChecker::SpellChecker(istream& wordlistfile)
 	// populate the alphabet array
 	for (int i = 0; i < ALPHABET_LENGTH; i++)
 	{
-		m_alphabet[i] = (char)(65 + i);
+		m_alphabet[i] = (char)(97 + i);
 	}
 
 	// local variable init
@@ -35,7 +35,6 @@ SpellChecker::SpellChecker(istream& wordlistfile)
 
 SpellChecker::~SpellChecker()
 {
-	delete m_suggestions;
 	delete m_wordlist;
 }
 
@@ -46,32 +45,30 @@ void SpellChecker::swapAdjacent(string misspelling)
 	{
 		swapChars(misspelling, i);
 		if (m_wordlist->find(misspelling))
-			m_suggestions->push_back(misspelling);
+			m_suggestions.push_back(misspelling);
 		swapChars(misspelling, i); // swap them back to original positions
 	}
 }
 
 void SpellChecker::insertChar(string misspelling)
 {
-	for (int i = 0; i < misspelling.size(); i++)
+	for (int i = 0; i < misspelling.size() + 1; i++)
 	{
 		for (int j = 0; j < ALPHABET_LENGTH; j++)
 		{
 			misspelling.insert(misspelling.begin()+i, m_alphabet[j]);
-			cout << "attempting: " << misspelling << endl;
 			if (m_wordlist->find(misspelling))
-				m_suggestions->push_back(misspelling);
-			misspelling.erase(i);
+				m_suggestions.push_back(misspelling);
+			misspelling.erase(i, 1);
 		}
 	}
 }
 
-vector<string> * SpellChecker::suggest(string misspelling)
+void SpellChecker::suggest(string misspelling)
 {
-	m_suggestions->clear(); // clear any suggestions from previous misspellings
+	if (!m_suggestions.empty()) m_suggestions.clear(); // clear suggestions from previous misspellings
 	swapAdjacent(misspelling);
 	insertChar(misspelling);
-	return m_suggestions;
 }
 
 void SpellChecker::spellCheck(istream& inf, ostream& outf)
@@ -89,7 +86,7 @@ void SpellChecker::spellCheck(istream& inf, ostream& outf)
 			transform(word.begin(), word.end(), word.begin(), ::tolower); // convert to lower case
 			if (!m_wordlist->find(word))
 			{
-				m_suggestions = this->suggest(word);
+				this->suggest(word);
 				// print suggestions
 			}
 		}
