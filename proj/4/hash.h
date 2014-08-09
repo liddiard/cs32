@@ -23,7 +23,7 @@ public:
 	bool find(std::string val);
 
 private:
-	int hash(std::string val, bool verbose); // TODO: remove
+	int hash(std::string val);
 	int m_nBuckets;
 	std::vector<Bucket> m_storage;
 };

@@ -22,7 +22,7 @@ SpellChecker::SpellChecker(istream& wordlistfile)
 	getline(wordlistfile, line);
 	ss << line;
 	ss >> wordlist_size;
-	HashTable * m_wordlist = new HashTable(wordlist_size);
+	m_wordlist = new HashTable(wordlist_size);
 
 	// load words into the hashtable
 	while (getline(wordlistfile, line)) 
@@ -70,6 +70,7 @@ vector<string> * SpellChecker::suggest(string misspelling)
 {
 	m_suggestions->clear(); // clear any suggestions from previous misspellings
 	swapAdjacent(misspelling);
+	insertChar(misspelling);
 	return m_suggestions;
 }
 
@@ -86,10 +87,9 @@ void SpellChecker::spellCheck(istream& inf, ostream& outf)
 		while (ss >> word) // while we have words in the line
 		{
 			transform(word.begin(), word.end(), word.begin(), ::tolower); // convert to lower case
-			cout << word << endl;
 			if (!m_wordlist->find(word))
 			{
-				// m_suggestions = this->suggest(word);
+				m_suggestions = this->suggest(word);
 				// print suggestions
 			}
 		}
