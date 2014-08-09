@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+const float MAX_LOAD_FACTOR = 0.5;
+
 struct Bucket
 {
 	std::string val;
@@ -21,7 +23,7 @@ public:
 	bool find(std::string val);
 
 private:
-	int hash(std::string val);
+	int hash(std::string val, bool verbose); // TODO: remove
 	int m_nBuckets;
 	std::vector<Bucket> m_storage;
 };

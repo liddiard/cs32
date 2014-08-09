@@ -1,7 +1,9 @@
-#include <string>
-using namespace std;
+#ifndef UTILITIES_INCLUDED
+#define UTILITIES_INCLUDED
 
-string swapChars(string& str, int i)
+#include <string>
+
+std::string swapChars(std::string& str, int i)
 {
 	char tmp;
 	tmp = str[i];
@@ -9,3 +11,5 @@ string swapChars(string& str, int i)
 	str[i+1] = tmp;
 	return str;
 }
+
+#endif // UTILITIES_INCLUDED
