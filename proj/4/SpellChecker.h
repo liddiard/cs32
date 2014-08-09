@@ -22,6 +22,7 @@ private:
 	void suggest(std::string misspelling); // update m_suggestions with suggestions for a misspelled word
 	void swapAdjacent(std::string misspelling);
 	void insertChar(std::string misspelling);
+	void deleteChar(std::string misspelling);
 };
 
 #endif // SPELL_CHECKER_INCLUDED
