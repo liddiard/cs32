@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <algorithm>
 #include "hash.h"
 using namespace std;
 
@@ -14,6 +15,7 @@ void spellCheck(istream& inf, istream& wordlistfile, ostream& outf)
 	string line;
 	string word;
 	int wordlist_size;
+	vector<string> paragraph;
 
 	// create a hashtable of appropriate size
 	getline(wordlistfile, line);
@@ -27,6 +29,18 @@ void spellCheck(istream& inf, istream& wordlistfile, ostream& outf)
 		ss << line;
 		ss >> word;
 		wordlist->insert(word);
+	}
+
+	// spellcheck each word
+	while (getline(inf, line)) // while we have lines (paragraphs)
+	{
+		ss << line;
+		while (ss >> word) // while we have words in the line
+		{
+			transform(word.begin(), word.end(), word.begin(), ::tolower);
+			if (!wordlist->find(word))
+				cout << "didn't find " << word << endl;
+		}
 	}
 
 	delete wordlist;
