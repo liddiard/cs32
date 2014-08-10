@@ -141,11 +141,11 @@ void SpellChecker::outputSuggestions(string line, string misspelling, ostream& o
 
 	// output suggestions
 	outf << line << endl;
-	outf << "     word not found: " << misspelling << endl;
-	outf << "  perhaps you meant: " << endl;
+	outf << "word not found: " << misspelling << endl;
+	outf << "perhaps you meant: " << endl;
 	for (vector<string>::iterator it = m_suggestions.begin(); it != m_suggestions.end(); ++it)
 	{
-		outf << "          " << *it << endl;
+		outf << *it << endl;
 	}
 	outf << endl;
 }
