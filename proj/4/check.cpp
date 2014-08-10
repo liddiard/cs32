@@ -1,6 +1,4 @@
 #include <iostream>
-#include <string>
-#include <algorithm>
 #include <fstream>
 #include "SpellChecker.h"
 using namespace std;
