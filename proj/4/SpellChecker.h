@@ -23,6 +23,7 @@ private:
 	void swapAdjacent(std::string misspelling);
 	void insertChar(std::string misspelling);
 	void deleteChar(std::string misspelling);
+	void replaceChar(std::string misspelling);
 };
 
 #endif // SPELL_CHECKER_INCLUDED
