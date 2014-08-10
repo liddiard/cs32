@@ -19,7 +19,9 @@ private:
 	HashTable * m_wordlist;
 	std::vector<std::string> m_suggestions;
 
-	void suggest(std::string misspelling); // update m_suggestions with suggestions for a misspelled word
+	void suggest(std::string misspelling); // updates m_suggestions with suggestions for a misspelled word
+	void collectSuggestions();
+	void outputSuggestions(std::string line, std::string misspelling, std::ostream& outf);
 	void swapAdjacent(std::string misspelling);
 	void insertChar(std::string misspelling);
 	void deleteChar(std::string misspelling);

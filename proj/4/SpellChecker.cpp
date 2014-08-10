@@ -1,5 +1,6 @@
 #include <iostream>
 #include <sstream>
+#include <algorithm>
 #include "SpellChecker.h"
 #include "utilities.cpp"
 using namespace std;
@@ -9,7 +10,7 @@ SpellChecker::SpellChecker(istream& wordlistfile)
 	// populate the alphabet array
 	for (int i = 0; i < ALPHABET_LENGTH; i++)
 	{
-		m_alphabet[i] = (char)(97 + i);
+		m_alphabet[i] = (char)(65 + i);
 	}
 
 	// local variable init
@@ -29,6 +30,7 @@ SpellChecker::SpellChecker(istream& wordlistfile)
 	{
 		ss << line;
 		ss >> word;
+		transform(word.begin(), word.end(), word.begin(), ::toupper); // convert to upper case
 		m_wordlist->insert(word);
 	}
 }
@@ -116,6 +118,38 @@ void SpellChecker::suggest(string misspelling)
 	splitWord(misspelling);
 }
 
+void SpellChecker::collectSuggestions() // sort and de-dup suggestions
+{
+	// sort suggestions
+	sort(m_suggestions.begin(), m_suggestions.end());
+
+	// remove duplicates
+	vector<int> dups;
+	for (vector<string>::size_type i = 0; i != m_suggestions.size() - 1; i++)
+	{
+		if (m_suggestions[i] == m_suggestions[i+1]) dups.push_back(i+1);
+	}
+	for (vector<int>::size_type i = 0; i != dups.size(); i++)
+	{
+		m_suggestions.erase(m_suggestions.begin()+ dups[i] - i);
+	}
+}
+
+void SpellChecker::outputSuggestions(string line, string misspelling, ostream& outf)
+{
+	this->collectSuggestions();
+
+	// output suggestions
+	outf << line << endl;
+	outf << "     word not found: " << misspelling << endl;
+	outf << "  perhaps you meant: " << endl;
+	for (vector<string>::iterator it = m_suggestions.begin(); it != m_suggestions.end(); ++it)
+	{
+		outf << "          " << *it << endl;
+	}
+	outf << endl;
+}
+
 void SpellChecker::spellCheck(istream& inf, ostream& outf)
 {
 	stringstream ss;
@@ -128,11 +162,11 @@ void SpellChecker::spellCheck(istream& inf, ostream& outf)
 		ss << line;
 		while (ss >> word) // while we have words in the line
 		{
-			transform(word.begin(), word.end(), word.begin(), ::tolower); // convert to lower case
+			transform(word.begin(), word.end(), word.begin(), ::toupper); // convert to upper case
 			if (!m_wordlist->find(word))
 			{
 				this->suggest(word);
-				// print suggestions
+				this->outputSuggestions(line, word, outf);
 			}
 		}
 	}
