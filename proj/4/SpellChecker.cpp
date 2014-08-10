@@ -86,11 +86,23 @@ void SpellChecker::replaceChar(string misspelling)
 		for (int j = 0; j < ALPHABET_LENGTH; j++)
 		{
 			misspelling[i] = m_alphabet[j];
-			cout << "attempting: " << misspelling << endl;
 			if (m_wordlist->find(misspelling))
 				m_suggestions.push_back(misspelling);
 		}
 		misspelling[i] = orig;
+	}
+}
+
+void SpellChecker::splitWord(string misspelling)
+{
+	string s1;
+	string s2;
+	for (int i = 1; i < misspelling.size(); i++)
+	{
+		s1 = misspelling.substr(0, i);
+		s2 = misspelling.substr(i, misspelling.size());
+		if (m_wordlist->find(s1) && m_wordlist->find(s2))
+			m_suggestions.push_back(s1 + " " + s2);
 	}
 }
 
@@ -101,6 +113,7 @@ void SpellChecker::suggest(string misspelling)
 	insertChar(misspelling);
 	deleteChar(misspelling);
 	replaceChar(misspelling);
+	splitWord(misspelling);
 }
 
 void SpellChecker::spellCheck(istream& inf, ostream& outf)

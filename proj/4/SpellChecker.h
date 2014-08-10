@@ -24,6 +24,7 @@ private:
 	void insertChar(std::string misspelling);
 	void deleteChar(std::string misspelling);
 	void replaceChar(std::string misspelling);
+	void splitWord(std::string misspelling);
 };
 
 #endif // SPELL_CHECKER_INCLUDED
