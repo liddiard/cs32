@@ -1,0 +1,36 @@
+BST Insertion
+Insertion begins as a search would begin; if the key is not equal to that of the root, we search the left or right subtrees as before. Eventually, we will reach an external node and add the new key-value pair (here encoded as a record 'newNode') as its right or left child, depending on the node's key. In other words, we examine the root and recursively insert the new node to the left subtree if its key is less than that of the root, or the right subtree if its key is greater than or equal to the root.
+
+BST Deletion
+There are three possible cases to consider:
+- Deleting a leaf (node with no children): Deleting a leaf is easy, as we can simply remove it from the tree.
+- Deleting a node with one child: Remove the node and replace it with its child.
+- Deleting a node with two children: Call the node to be deleted N. Do not delete N. Instead, choose either its in-order successor node or its in-order predecessor node, R. Copy the value of R to N, then recursively call delete on R until reaching one of the first two cases.
+
+Tree Traversal
+Pre-order
+1. Visit the root.
+2. Traverse the left subtree.
+3. Traverse the right subtree.
+In-order (symmetric)
+1. Traverse the left subtree.
+2. Visit the root.
+3. Traverse the right subtree.
+Post-order
+1. Traverse the left subtree.
+2. Traverse the right subtree
+3. Visit the root
+
+complete tree: nodes filled in order, not necessarily full
+full tree: symmetrical, every node filled in
+
+Heap Insertion
+To add an element to a heap we must perform an up-heap operation (also known as bubble-up, percolate-up, shift-up, trickle up, heapify-up, or cascade-up), by following this algorithm:
+1. Add the element to the bottom level of the heap.
+2. Compare the added element with its parent; if they are in the correct order, stop.
+3. If not, swap the element with its parent and return to the previous step.
+
+Heap Implementation
+Let n be the number of elements in the heap and i be an arbitrary valid index of the array storing the heap. If the tree root is at index 0, with valid indices 0 through n − 1, then each element a at index i has
+- children at indices 2i + 1 and 2i + 2
+- its parent ⌊(i − 1) ∕ 2⌋ where ⌊…⌋ is the floor function.
