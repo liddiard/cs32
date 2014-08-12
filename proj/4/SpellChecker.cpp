@@ -2,8 +2,17 @@
 #include <sstream>
 #include <algorithm>
 #include "SpellChecker.h"
-#include "utilities.cpp"
 using namespace std;
+
+// utilities
+string swapChars(string& str, int i)
+{
+	char tmp;
+	tmp = str[i];
+	str[i] = str[i+1];
+	str[i+1] = tmp;
+	return str;
+}
 
 SpellChecker::SpellChecker(istream& wordlistfile)
 {
