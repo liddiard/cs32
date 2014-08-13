@@ -34,3 +34,100 @@ Heap Implementation
 Let n be the number of elements in the heap and i be an arbitrary valid index of the array storing the heap. If the tree root is at index 0, with valid indices 0 through n − 1, then each element a at index i has
 - children at indices 2i + 1 and 2i + 2
 - its parent ⌊(i − 1) ∕ 2⌋ where ⌊…⌋ is the floor function.
+
+Class Construction/Destruction order
+Contained class gets constructed before outer class.
+Outer class gets destryed before contained class.
+If containing class requires params to be constructed, must do so in initializer list.
+
+Don't do using namespace std in header files. It forces files including them to use namespace std.
+
+Copy constructor: Initializes a new var from an existing var
+called when: ClassName b(a); or ClassName b = a; or passing var to func by value (new instance gets created)
+use when: dynamic memory allocation
+method must:
+1. determine how much memory is allocated by old var
+2. alloc same amt of memory in new var
+3. copy contents of old var to new
+ClassName::ClassName(const ClassName &old){ m_var = old.m_var }
+
+Operator overloading
+use when: dynamic memory allocation
+method must:
+1. Free all dynamic memory used by the target instance. 
+2. Re-allocate memory in the target instance to hold any member variables from the source instance. 
+3. Explicitly copy the contents of the source instance to the target instance. 
+ClassName ClassName::ClassName &operator= (const ClassName &src) { m_var = src.m_var; return (*this); }
+bool ClassName::ClassName operator>=(const ClassName &a, const ClassName &b)
+
+Stacks and Queues
+Stacks: LIFO  Queues: FIFO
+
+Inheritance
+Classes constructed from superclass to subclass.
+Destructed from subclass to superclass.
+Construct base class with params in child class's initializer list.
+"virtual" keyword in front of methods you will override in the base class and child class.
+If inheriting, always use "virtual" in front of destructors!
+
+Abstract base classes with pure virtual functions
+virtual returntype methodname() = 0;
+
+Recursion
+Stopping condition(s): solve the most basic problem(s) w/o recursion
+Carey's magicfunc solves smaller problems (usually n-1 or n/2)
+1. Write function header
+2. Define magic function
+3. Add base cases
+4. Solve problem using magicfunc
+5. Remove magic
+6. Validate function
+
+Binary search (recursive)
+int BS(string A[], int top, int bot, string f)
+{
+  if (top > bot)	
+    return (-1); 	// Value not found
+  else 
+  {
+    int Mid = (top + bot) / 2;
+ 
+    if (f == A[Mid]) 
+	return(Mid); // found – return where!
+    else if (f < A[Mid])
+       return(BS(A,top,Mid - 1,f));
+    else if (f > A[Mid])
+       return(BS(A, Mid + 1,bot,f));
+   }
+}
+
+Generic Programming
+template <typename T> // "T" can be anything
+^ place at the top of header file
+C++ always calls specialized function over generic one if similar multiple matching function signatures.
+
+Sorting
+Selection sort: stable, always O(n^2)
+Insertion sort: stable, N best case, O(n^2) worst case
+Bubble sort: stable, N best case, O(n^2) worst case
+Shell sort: unstable, O(n^2) worst case, average case around O(n^1.25)
+Quicksort: unstable, nlog(n), gets very slow on almost-sorted arrays or reverse sorted arrays
+Mergesort: stable, always nlog(n)
+
+Trees
+Full binary trees: Every leaf has the same depth, and every non-leaf has exactly two children. 
+AVL tree: a BST in which the heights of the left and right sub-trees of each node differ at most by 1.
+	each node has an integer balance value:
+		0 if the node’s left and right subtrees have the same height
+		-1 if the node’s left subtree is 1 higher than the right
+		1 if the node’s right subtree is 1 higher than the left
+
+Heap
+Array implementation
+Left child: array[2i+1]
+Right child: array[2i+2]
+Inserting and extracting from a heap is O(log2(n))
+
+Graph Traversals
+A Depth-first Traversal keeps moving forward until it hits a dead end or a previously-visited vertex… then it backtracks and tries another path.
+A Breadth-first Traversal exploresthe graph in growing concentric circles,  exploring all vertices 1 away from the start, then 2 away, then 3 away, etc.
